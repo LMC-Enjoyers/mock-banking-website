@@ -1,0 +1,98 @@
+.featured {
+    width: 100%;
+    display: flex;
+    font-family: Montserrat-SemiBold;
+}
+
+.featuredItem {
+    flex: 1;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 30px;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: rgb(31, 31, 31);
+    font-size: 20px;
+    color: aliceblue;
+}
+
+.featuredItem.light {
+    background-color: rgb(208, 211, 213);
+    color: rgb(31, 31, 31);
+}
+
+.featuredTitle {
+    font-size: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.featuredTitle.pie {
+    margin-bottom: 10px;
+}
+
+.titleName.small {
+    font-size: 35px;
+}
+
+.accountInfo.dark {
+    color: rgb(76, 77, 78);
+}
+
+.featuredMoney {
+    font-size: 60px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.featuredMoneyRate {
+    display: flex;
+    align-items: center;
+}
+
+.featuredMoneyContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.featuredIcon {
+    color: red;
+    margin-right: 10px;
+}
+
+.featuredIcon.positive {
+    color: rgb(75, 205, 75);
+}
+
+.bankIcon {
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    color: slategrey;
+}
+
+.bankIcon.dark {
+    color: rgb(31, 31, 31);
+}
+
+.titleName {
+    padding-left: 20px;
+}
+
+.accountInfo {
+    padding-left: 20px;
+    font-size: 20px;
+    color: rgb(168, 171, 174);
+}
+
+
+
+@font-face {
+    font-family: Montserrat-SemiBold;
+    src: url(../../assets/Montserrat-SemiBold.ttf);
+}

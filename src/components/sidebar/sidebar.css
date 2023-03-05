@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+}
+
+.sideBar {
+    flex: 1;
+    font-family: Montserrat-SemiBold;
+    height: 100vh;
+    background-color: rgb(21, 30, 37);
+    color: aliceblue;
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
+.sideBarWrapper {
+    padding: 20px;
+}
+
+.sideBarMenu {
+    margin-bottom: 10px;
+    margin-top: 200px;
+}
+
+.sideBarList {
+    list-style: none;
+    padding: 5px;
+}
+
+.logout {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: rgb(154, 157, 161);
+    margin-top: 200px;
+    font-size: 20px !important;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.logout:hover {
+    background-color: rgb(113, 56, 50);
+}
+
+hr {
+    margin-top: 300px;
+}
+
+.sideBarListItem {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.sideBarListItem.active,
+.sideBarListItem:hover {
+    background-color: rgb(33, 44, 52);
+}
+
+.sideBarIcon {
+    margin-right: 5px;
+}
+
+@font-face {
+    font-family: Montserrat-SemiBold;
+    src: url(../../assets/Montserrat-SemiBold.ttf);
+}
