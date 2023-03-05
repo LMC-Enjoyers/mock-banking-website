@@ -75,8 +75,8 @@ export default function FeaturedInfo(this: any) {
                 <span className="titleName">Top Categories</span>
             </div>
             <div>
-                <PieChart width={700} height={500}>
-                    <Pie data={data} dataKey="value" nameKey='name' cx='50%' cy='50%' innerRadius={130} outerRadius={160} fill="#1e1e1e" paddingAngle={2} legendType='square' label>
+                <PieChart width={500} height={500}>
+                    <Pie data={data} dataKey="value" nameKey='name' cx='50%' cy='50%' innerRadius={130} outerRadius={160} fill="#1e1e1e" paddingAngle={2} legendType='square' label>  
                     {
                     data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colours[index]}/>

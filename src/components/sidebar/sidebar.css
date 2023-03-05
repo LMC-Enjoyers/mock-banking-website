@@ -5,12 +5,14 @@ body {
 .sideBar {
     flex: 1;
     font-family: Montserrat-SemiBold;
-    height: 100vh;
+    min-height: 100%;
     background-color: rgb(21, 30, 37);
     color: aliceblue;
-    position: sticky;
+    position: relative;
     left: 0;
     top: 0;
+    padding-top: 10%;
+
 }
 
 .sideBarWrapper {
@@ -18,13 +20,13 @@ body {
 }
 
 .sideBarMenu {
-    margin-bottom: 10px;
-    margin-top: 200px;
+    margin-bottom: 50%;
+    margin-top: 50%;
 }
 
 .sideBarList {
     list-style: none;
-    padding: 5px;
+    padding: 1%;
 }
 
 .logout {
@@ -32,9 +34,10 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
+    position: relative;
     align-items: center;
     color: rgb(154, 157, 161);
-    margin-top: 200px;
+    margin-top: 2%;
     font-size: 20px !important;
     cursor: pointer;
     border-radius: 20px;
@@ -44,21 +47,24 @@ body {
     background-color: rgb(113, 56, 50);
 }
 
-hr {
-    margin-top: 300px;
+hr { /*side bar logout doesnt go to the bottom - must fix*/
+    position: relative;
+    margin-top: 250%;
 }
 
 .sideBarListItem {
-    padding: 10px;
+    padding: 5%;
     cursor: pointer;
     display: flex;
     align-items: center;
     border-radius: 15px;
+    margin-bottom: 2%;
 }
 
 .sideBarListItem.active,
 .sideBarListItem:hover {
     background-color: rgb(33, 44, 52);
+    
 }
 
 .sideBarIcon {
