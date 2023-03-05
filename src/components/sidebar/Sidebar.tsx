@@ -12,7 +12,7 @@ export default function Sidebar() {
         <div className="sideBarMenu">
             <ul className="sideBarList">
                 <li className="sideBarListItem active">
-                    <AppsIcon className='sideBarIcon'/>
+                    <AppsIcon className='sideBarIcon' />
                     Overview
                 </li>
                 <li className="sideBarListItem">
