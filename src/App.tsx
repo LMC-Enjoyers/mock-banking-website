@@ -1,6 +1,6 @@
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
-import './app.css'
+import './App.css'
 import Overview from "./pages/overview/Overview";
 
 function App() {
