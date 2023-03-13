@@ -4,7 +4,7 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Legend } from 'recharts';
 
 export default function FeaturedInfo(this: any) {
     const moneyRate: number = 10.30;
@@ -70,7 +70,7 @@ export default function FeaturedInfo(this: any) {
             </div>
         </div>
         </div>
-        <div className="featuredItem light">
+        <div className="featuredItem pie">
             <div className="featuredTitle pie">
                 <span className="titleName">Top Categories</span>
             </div>
