@@ -8,6 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 export default function Sidebar() {
   return (
     <div className='sideBar'>
+      {/* everything in the "sideBar", including a an Overview link, Summary link and Custom View link. At the moment these links do nothing (change this comment once they work) */}
       <div className="sideBarWrapper">
         <div className="sideBarMenu">
             <ul className="sideBarList">
