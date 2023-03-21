@@ -6,12 +6,8 @@ import Overview from "./pages/overview/Overview";
 function App() {
   return (
     <div>
-      <div className="container">       
+      <div className="flex">       
         <Sidebar/>
-        <div className="page">
-          <Topbar/>
-          <Overview/>
-        </div>
       </div>
     </div>
   );

@@ -1,9 +1,12 @@
-.container {
-    display: flex;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.page {
-    flex: 5;
-    padding-right: 10px;
-    background-color: aliceblue;
+@layer components {
+
+    .sidebar-item {
+        @apply relative inline-flex items-center justify-center h-12 mt-2 mb-2 m-4
+
+    }
+
 }
