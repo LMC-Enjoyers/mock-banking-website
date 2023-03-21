@@ -7,6 +7,8 @@ module.exports = {
     extend: {
       colors: {
         'bank-black': '#202123',
+        'bank-grey': '#2d2d2e',
+        'bank-letter-grey': '#717173'
       }
     },
   },

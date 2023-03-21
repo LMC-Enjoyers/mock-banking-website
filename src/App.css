@@ -5,8 +5,9 @@
 @layer components {
 
     .sidebar-item {
-        @apply relative inline-flex items-center justify-center h-12 mt-2 mb-2 m-4
-
+        @apply relative inline-flex items-center justify-center 
+        h-12 mt-2 mb-2 bg-transparent hover:bg-bank-grey hover:rounded-3xl transition-all
+        duration-200 cursor-pointer ease-linear
     }
 
 }

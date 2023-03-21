@@ -7,37 +7,37 @@ import { fontWeight } from "@mui/system";
 
 export default function Sidebar() {
   return (
-    <div className="fixed top-0 left-0 h-screen w-52 flex flex-col bg-bank-black">
+    <div className="fixed top-0 left-0 h-screen w-64 flex flex-col bg-bank-black">
       <SidebarStart icon={<BsFillGrid1X2Fill color="white" size='20'/>} item={"Overview"} />
       <SidebarItem icon={<BsBarChartSteps color="white" size='20'/>} item={"Summary"} />
-      <SidebarEnd icon={<BiLogOut color="grey" size='24'/>} item={"Logout"} />
+      <SidebarEnd icon={<BiLogOut color="grey" size='24'/>} item={"Log out"} />
     </div>
   );
 }
 
 const SidebarItem = ({ icon, item }: { icon: any, item: string }) => (
-  <div className="sidebar-item">
+  <button className="sidebar-item">
     {icon}
-    <div className="text-white font-medium p-2">
+    <div className="text-white font-medium p-4">
       {item}
     </div>
-  </div>
+  </button>
 )
 
 const SidebarStart = ({ icon, item }: { icon: any, item: string }) => (
-  <div className="sidebar-item mt-28">
+  <button className="sidebar-item mt-28">
     {icon}
-    <div className="text-white font-medium p-2">
+    <div className="text-white font-medium p-4">
       {item}
     </div>
-  </div>
+  </button>
 )
 
 const SidebarEnd = ({ icon, item }: { icon: any, item: string }) => (
-  <div className="sidebar-item mt-auto">
+  <button className="sidebar-item mt-auto mb-5">
     {icon}
-    <div className="text-white font-medium p-2">
+    <div className="text-bank-letter-grey font-semibold p-4">
       {item}
     </div>
-  </div>
+  </button>
 )
