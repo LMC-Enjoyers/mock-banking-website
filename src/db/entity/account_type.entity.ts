@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Account } from "./account.entity"
 
 @Entity()
 export class AccountType {
@@ -13,6 +14,9 @@ export class AccountType {
 
     @CreateDateColumn()
     create_time: Date;
+
+    @OneToMany(() => Account, (account: Account) => account.account_type)
+    accounts: Account[]
 
     constructor(
         type_name: string,

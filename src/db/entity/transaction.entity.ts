@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm';
+import { Account } from "./account.entity"
+import { TransactionCategory } from "./transaction_category.entity"
 
 @Entity()
 export class Transaction {
@@ -19,6 +21,12 @@ export class Transaction {
 
     @CreateDateColumn()
     transaction_time: Date;
+
+    @ManyToOne(() => Account, (account) => account.transactions)
+    account: Account;
+
+    @ManyToOne(() => TransactionCategory, (transaction_category) => transaction_category.transactions)
+    transaction_category: TransactionCategory;
 
     constructor(
         account_id: string,

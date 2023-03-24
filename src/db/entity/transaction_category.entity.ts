@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Transaction } from "./transaction.entity"
 
 @Entity()
 export class TransactionCategory {
@@ -10,6 +11,9 @@ export class TransactionCategory {
 
     @CreateDateColumn()
     create_time: Date;
+
+    @OneToMany(() => Transaction, (transaction: Transaction) => transaction.account)
+    transactions: Transaction[]
 
     constructor(
         category_name: string

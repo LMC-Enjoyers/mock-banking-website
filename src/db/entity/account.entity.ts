@@ -1,4 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { User } from "./user.entity"
+import { Branch } from "./branch.entity"
+import { AccountType } from "./account_type.entity"
+import { Transaction } from "./transaction.entity"
 
 @Entity()
 export class Account {
@@ -19,6 +23,18 @@ export class Account {
 
     @CreateDateColumn()
     create_time: Date;
+
+    @ManyToOne(() => User, (user) => user.accounts)
+    user: User;
+
+    @ManyToOne(() => Branch, (branch: Branch) => branch.accounts)
+    branch: Branch;
+
+    @ManyToOne(() => AccountType, (account_type) => account_type.accounts)
+    account_type: AccountType;
+
+    @OneToMany(() => Transaction, (transaction: Transaction) => transaction.account)
+    transactions: Transaction[]
 
     constructor(
         user_id: string,
