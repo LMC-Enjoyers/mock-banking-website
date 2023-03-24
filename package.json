@@ -20,6 +20,7 @@
     "recharts": "^2.4.3",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.1.6",
+    "typeorm": "^0.3.12",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
