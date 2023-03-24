@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Transaction {
@@ -17,20 +17,18 @@ export class Transaction {
     @Column({ type: 'varchar', length: 36 })
     transaction_category_id: string;
 
-    @Column({ type: 'timestamptz', default: () => "CURRENT_TIMESTAMP" })
+    @CreateDateColumn()
     transaction_time: Date;
 
     constructor(
         account_id: string,
         transaction_content: string,
         transaction_value: number,
-        transaction_category_id: string,
-        transaction_time: Date
+        transaction_category_id: string
     ) {
         this.account_id = account_id;
         this.transaction_content = transaction_content;
         this.transaction_value = transaction_value;
         this.transaction_category_id = transaction_category_id;
-        this.transaction_time = transaction_time;
     }
 }

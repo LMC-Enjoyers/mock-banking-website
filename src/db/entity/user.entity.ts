@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -29,7 +29,7 @@ export class User {
     @Column({ type: 'date' })
     dob: Date;
 
-    @Column({ type: 'timestamptz', default: () => "CURRENT_TIMESTAMP" })
+    @CreateDateColumn()
     create_time: Date;
 
     constructor(
@@ -40,8 +40,7 @@ export class User {
         last_name: string,
         email_address: string,
         mobile_number: string,
-        dob: Date,
-        create_time: Date
+        dob: Date
     ) {
         this.username = username;
         this.password = password;
@@ -51,6 +50,5 @@ export class User {
         this.email_address = email_address;
         this.mobile_number = mobile_number;
         this.dob = dob;
-        this.create_time = create_time;
     }
 }
