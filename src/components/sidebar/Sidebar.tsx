@@ -6,7 +6,7 @@ import { BiLogOut } from "react-icons/bi";
 
 export default function Sidebar() {
   return (
-    <div className="top-0 left-0 h-screen w-48 lg:w-56 flex flex-col bg-bank-black">
+    <div className="flex flex-col top-0 left-0 h-auto w-48 lg:w-56 bg-bank-black overflow-auto">
       <div className="flex flex-col w-4/5 h-4/5 self-center mt-32">
         <SidebarItem icon={<BsFillGrid1X2Fill color="white" size='20'/>} item={"Overview"} />
         <SidebarItem icon={<BsBarChartSteps color="white" size='20'/>} item={"Summary"} />

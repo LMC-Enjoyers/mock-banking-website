@@ -5,10 +5,10 @@ import FeaturedInfo2 from "./components/featuredInfo/FeaturedInfo2";
 
 function App() {
   return (
-    <div>
-      <div className="flex flex-row h-screen">       
+    <div className="flex h-screen">
+      <div className="flex flex-row flex-grow">       
         <Sidebar/>
-        <div className="flex flex-col flex-grow bg-bank-light-grey">
+        <div className="flex flex-col flex-grow">
           <Topbar/>
           <FeaturedInfo2/>
         </div>
