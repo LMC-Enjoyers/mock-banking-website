@@ -4,6 +4,7 @@ import { PieChart, Pie, Cell } from "recharts";
 import { AiFillBank } from "react-icons/ai";
 import { BiTrendingDown } from "react-icons/bi";
 import { BiTrendingUp } from "react-icons/bi";
+import { IoMdWallet } from "react-icons/io";
 
 export default function FeaturedInfo2() {
   //measures the rate by which the money in your bank account has increases / decreased
@@ -27,10 +28,11 @@ export default function FeaturedInfo2() {
     { name: "Phones", value: 200 },
   ];
   return (
-    <div className="flex flex-row flex-grow w-full bg-bank-background-grey overflow-auto">
-      <div className="flex flex-col h-full w-1/2">
-        <div className="flex flex-col h-full">
-          <div className="flex flex-col mt-8 ml-28 h-80 w-5/6 flex-shrink-0 bg-bank-black border rounded-3xl shadow">
+    <div className="flex flex-col 2xl:flex-row h-full w-full overflow-y-scroll bg-bank-background-grey">
+      <div className="flex flex-col h-fit w-full 2xl:w-1/2">
+        <div className="flex flex-col items-center sm:items-start h-full">
+          {/* Black "main account" card */}
+          <div className="flex flex-col mt-8 sm:ml-28 h-80 w-5/6 flex-shrink-0 bg-bank-black border rounded-3xl shadow">
             <div className="flex flex-row ml-12 mt-8">
               <div className="flex items-center h-full mr-8">
                 <div className="flex bg-bank-light-grey p-2 rounded-2xl shadow">
@@ -50,7 +52,7 @@ export default function FeaturedInfo2() {
               <div className="text-4xl text-white font-semibold">$1,984.00</div>
             </div>
             <div className="flex flex-row ml-12 mt-12">
-              <div className="flex flex-row">
+              <div className="flex w-40 flex-row">
                 {moneyRateIcon}
                 <div className="ml-2 text-white text-xl">
                   {moneyRateString}%
@@ -62,30 +64,34 @@ export default function FeaturedInfo2() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col mt-10 ml-28 h-80 w-5/6 flex-shrink-0 bg-white border rounded-3xl shadow">
+
+          {/* White "Savings" card */}
+          <div className="flex flex-col mt-10 sm:ml-28 h-80 w-5/6 flex-shrink-0 bg-white border rounded-3xl shadow">
             <div className="flex flex-row ml-12 mt-8">
               <div className="flex items-center h-full mr-8">
                 <div className="flex bg-bank-lighter-grey p-2 rounded-2xl shadow">
-                  <AiFillBank size="50" />
+                  <IoMdWallet size="50" />
                 </div>
               </div>
               <div className="flex justify-center flex-col">
                 <div className="mb-2 mt-2 text-lg font-semibold">
-                  NAME HERE
+                  ACCOUNT NAME (SAVINGS)
                 </div>
                 <div className="text-base font-semibold text-bank-light-grey">
-                  ACC_NO | SORT_CODE
+                  STARTING DATE
                 </div>
               </div>
             </div>
             <div className="flex ml-12 mt-12">
-              <div className="text-4xl font-semibold">$1,984.00</div>
+              <div className="text-4xl font-semibold">1,984.00</div>
             </div>
             <div className="flex flex-row ml-12 mt-12">
               <div className="flex flex-row">
-                <div className="ml-2 text-xl">
-                    5%
-                    <span className="text-bank-letter-grey ml-1">interest rate</span>
+                <div className="flex w-40 text-xl">
+                  5%
+                  <span className="text-bank-letter-grey ml-1">
+                    interest rate
+                  </span>
                 </div>
               </div>
               <div className="flex flex-row ml-12 text-xl">
@@ -96,10 +102,11 @@ export default function FeaturedInfo2() {
           </div>
         </div>
       </div>
-      <div className="flex flex-grow items-start justify-end">
-        <div className="flex flex-col pb-24 pt-12 mt-8 mr-28 flex-shrink-0 w-5/6 bg-white border rounded-3xl shadow">
+      <div className="flex w-full h-full 2xl:w-1/2 items-start justify-center sm:justify-start 2xl:justify-end">
+        {/* Pie chart card */}
+        <div className="flex flex-col pb-24 pt-12 mt-8 sm:ml-28 2xl:ml-0 2xl:mr-24 w-5/6 bg-white border rounded-3xl shadow">
           <div className="text-center text-3xl">Top Categories</div>
-          <div className="flex justify-center">
+          <div className="flex flex-shrink-0 justify-center">
             <PieChart width={500} height={500}>
               <Pie
                 data={data}
