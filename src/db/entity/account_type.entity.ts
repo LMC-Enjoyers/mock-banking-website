@@ -3,6 +3,9 @@ import { Account } from "./account.entity"
 
 @Entity()
 export class AccountType {
+    ENTITY_NAME = "AccountType"
+    PK = "account_type_id"
+
     @PrimaryGeneratedColumn("uuid")
     account_type_id: string;
 

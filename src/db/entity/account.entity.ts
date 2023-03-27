@@ -6,6 +6,9 @@ import { Transaction } from "./transaction.entity"
 
 @Entity()
 export class Account {
+    ENTITY_NAME = "Account"
+    PK = "account_id"
+
     @PrimaryGeneratedColumn("uuid")
     account_id: string;
 

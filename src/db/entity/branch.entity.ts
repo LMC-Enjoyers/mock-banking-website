@@ -3,6 +3,9 @@ import { Account } from "./account.entity"
 
 @Entity()
 export class Branch {
+    ENTITY_NAME = "Branch"
+    PK = "branch_id"
+
     @PrimaryGeneratedColumn("uuid")
     branch_id: string;
 

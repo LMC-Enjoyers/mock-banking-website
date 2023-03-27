@@ -3,6 +3,9 @@ import { Transaction } from "./transaction.entity"
 
 @Entity()
 export class TransactionCategory {
+    ENTITY_NAME = "TransactionCategory"
+    PK = "transaction_category_id"
+
     @PrimaryGeneratedColumn("uuid")
     transaction_category_id: string;
 
