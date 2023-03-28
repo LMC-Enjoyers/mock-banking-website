@@ -1,37 +1,35 @@
-import React from 'react'
-import './sidebar.css'
-import AppsIcon from '@mui/icons-material/Apps';
-import SortIcon from '@mui/icons-material/Sort';
-import PreviewIcon from '@mui/icons-material/Preview';
-import LogoutIcon from '@mui/icons-material/Logout';
+import React from "react";
+import "./sidebar.css";
+import { BsFillGrid1X2Fill } from "react-icons/bs";
+import { BsBarChartSteps } from "react-icons/bs";
+import { BiLogOut } from "react-icons/bi";
 
 export default function Sidebar() {
   return (
-    <div className='sideBar'>
-      {/* everything in the "sideBar", including a an Overview link, Summary link and Custom View link. At the moment these links do nothing (change this comment once they work) */}
-      <div className="sideBarWrapper">
-        <div className="sideBarMenu">
-            <ul className="sideBarList">
-                <li className="sideBarListItem active">
-                    <AppsIcon className='sideBarIcon' />
-                    Overview
-                </li>
-                <li className="sideBarListItem">
-                    <SortIcon className='sideBarIcon'/>
-                    Summary
-                </li>
-                <li className="sideBarListItem">
-                    <PreviewIcon className='sideBarIcon'/>
-                    Custom View
-                </li>
-            </ul>
-        </div>
-        <hr></hr>
-        <div className="logout">
-            <LogoutIcon className='sideBarIcon'/>
-            Logout
-        </div>
+    <div className="flex flex-col top-0 left-0 h-auto w-0 sm:w-32 md:w-48 bg-bank-black overflow-auto">
+      <div className="flex flex-col w-4/5 h-4/5 self-center mt-32">
+        <SidebarItem icon={<BsFillGrid1X2Fill color="white" size='20'/>} item={"Overview"} />
+        <SidebarItem icon={<BsBarChartSteps color="white" size='20'/>} item={"Summary"} />
+        <SidebarEnd icon={<BiLogOut color="grey" size='24'/>} item={"Log out"} />
       </div>
     </div>
-  )
+  );
 }
+
+const SidebarItem = ({ icon, item }: { icon: any, item: string }) => (
+  <button className="sidebar-item">
+    {icon}
+    <div className="text-white font-medium p-4">
+      {item}
+    </div>
+  </button>
+)
+
+const SidebarEnd = ({ icon, item }: { icon: any, item: string }) => (
+  <button className="sidebar-item mt-auto">
+    {icon}
+    <div className="text-bank-letter-grey font-semibold p-4">
+      {item}
+    </div>
+  </button>
+)

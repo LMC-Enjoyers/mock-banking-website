@@ -1,19 +1,18 @@
 import React from 'react'
-import './topbar.css'
 import logo from '../../assets/steven.jpg'
 
 export default function Topbar() {
   return (
-    
-    <div className='topBar'>
-      {/* everything in the "topBar", including a welcome message for the user, the users profile picture and account name */}
-        <div className='topBarWrapper'>
-            <div className='topLeft'><span className='logo'>Welcome Back, Steven Bradley</span></div>
-            <div className='topRight'>
-                <img src={logo} className='profilePic' width="32" height="32" alt='profile pic'></img>
-                <span className='username'>Steven Bradley</span>
-            </div>
+    <div className='flex bg-gray-400 h-32 items-center'>
+      <div className='flex p-2 ml-16 justify-start text-center w-1/2 tracking-tight text-3xl font-semibold'>
+        Welcome back
+      </div>
+      <div className='flex flex-grow'>
+        <div className='inline-flex justify-center p-2 ml-auto mr-16 break-normal items-center'>
+          <img src={logo} className='rounded-full h-12 w-12' alt='profile pic'></img>
+          <div className='inline-flex items-center p-4 text-lg text-bank-grey'>Steven Bradley</div>
         </div>
+      </div>
     </div>
   );
 }
