@@ -1,5 +1,4 @@
 import React from 'react'
-import './topbar.css'
 import logo from '../../assets/steven.jpg'
 
 export default function Topbar() {
