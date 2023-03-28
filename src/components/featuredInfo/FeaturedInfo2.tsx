@@ -42,7 +42,7 @@ export default function FeaturedInfo2() {
                 <div className="mb-2 mt-2 text-lg font-semibold text-white">
                   NAME HERE
                 </div>
-                <div className="text-base font-semibold text-bank-light-grey">
+                <div className="text-base font-semibold whitespace-nowrap text-bank-light-grey">
                   ACC_NO | SORT_CODE
                 </div>
               </div>
