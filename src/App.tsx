@@ -1,16 +1,16 @@
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import './App.css'
-import Overview from "./pages/overview/Overview";
+import FeaturedInfo2 from "./components/featuredInfo/FeaturedInfo2";
 
 function App() {
   return (
-    <div>
-      <div className="container">       
+    <div className="flex h-screen">
+      <div className="flex flex-row flex-grow">       
         <Sidebar/>
-        <div className="page">
+        <div className="flex flex-col flex-grow">
           <Topbar/>
-          <Overview/>
+          <FeaturedInfo2/>
         </div>
       </div>
     </div>
