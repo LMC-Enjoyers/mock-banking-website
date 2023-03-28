@@ -23,6 +23,10 @@ export default function Sidebar() {
                     <PreviewIcon className='sideBarIcon'/>
                     Custom View
                 </li>
+                <li className="sideBarListItem">
+                    <AppsIcon className='sideBarIcon' />
+                    Make a Transfer
+                </li>
             </ul>
         </div>
         <hr></hr>
