@@ -4,9 +4,9 @@ import logo from '../../assets/steven.jpg'
 
 export default function Topbar() {
   return (
-    <div className='flex bg-white h-32 items-center'>
+    <div className='flex bg-gray-400 h-32 items-center'>
       <div className='flex p-2 ml-16 justify-start text-center w-1/2 tracking-tight text-3xl font-semibold'>
-        Welcome back, Steven
+        Welcome back
       </div>
       <div className='flex flex-grow'>
         <div className='inline-flex justify-center p-2 ml-auto mr-16 break-normal items-center'>

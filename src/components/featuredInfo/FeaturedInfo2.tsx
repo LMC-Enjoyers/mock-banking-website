@@ -1,5 +1,4 @@
 import React from "react";
-import "./featuredInfo.css";
 import { PieChart, Pie, Cell } from "recharts";
 import { AiFillBank } from "react-icons/ai";
 import { BiTrendingDown } from "react-icons/bi";
@@ -28,12 +27,12 @@ export default function FeaturedInfo2() {
     { name: "Phones", value: 200 },
   ];
   return (
-    <div className="flex flex-col 2xl:flex-row h-full w-full overflow-y-scroll bg-bank-background-grey">
-      <div className="flex flex-col h-fit w-full 2xl:w-1/2">
+    <div className="flex flex-col 2xl:flex-row h-full w-screen sm:w-full overflow-hidden overflow-y-scroll bg-bank-background-grey">
+      <div className="flex flex-col h-fit w-screen sm:w-full 2xl:w-1/2">
         <div className="flex flex-col items-center sm:items-start h-full">
           {/* Black "main account" card */}
-          <div className="flex flex-col mt-8 sm:ml-28 h-80 w-5/6 flex-shrink-0 bg-bank-black border rounded-3xl shadow">
-            <div className="flex flex-row ml-12 mt-8">
+          <div className="flex flex-col mt-8 sm:ml-8 md:ml-16 lg:ml-28 h-80 w-5/6 sm:w-5/6 flex-shrink-0 bg-bank-black border rounded-3xl shadow">
+            <div className="flex flex-row ml-12 mr-12 mt-8">
               <div className="flex items-center h-full mr-8">
                 <div className="flex bg-bank-light-grey p-2 rounded-2xl shadow">
                   <AiFillBank color="white" size="50" />
@@ -48,11 +47,11 @@ export default function FeaturedInfo2() {
                 </div>
               </div>
             </div>
-            <div className="flex ml-12 mt-12">
+            <div className="flex ml-12 mr-12 mt-12">
               <div className="text-4xl text-white font-semibold">$1,984.00</div>
             </div>
-            <div className="flex flex-row ml-12 mt-12">
-              <div className="flex w-40 flex-row">
+            <div className="flex flex-row ml-12 mr-12 mt-12">
+              <div className="flex w-24 sm:w-40 flex-row">
                 {moneyRateIcon}
                 <div className="ml-2 text-white text-xl">
                   {moneyRateString}%
@@ -60,14 +59,14 @@ export default function FeaturedInfo2() {
               </div>
               <div className="flex flex-row ml-12 text-white text-xl">
                 +1.4k
-                <span className="text-bank-letter-grey ml-1">this week</span>
+                <span className="text-bank-letter-grey whitespace-nowrap ml-1">this week</span>
               </div>
             </div>
           </div>
 
           {/* White "Savings" card */}
-          <div className="flex flex-col mt-10 sm:ml-28 h-80 w-5/6 flex-shrink-0 bg-white border rounded-3xl shadow">
-            <div className="flex flex-row ml-12 mt-8">
+          <div className="flex flex-col mt-10 sm:ml-8 md:ml-16 lg:ml-28 h-80 w-5/6 sm:w-5/6 flex-shrink-0 bg-white border rounded-3xl shadow">
+            <div className="flex flex-row ml-12 mr-12 mt-8">
               <div className="flex items-center h-full mr-8">
                 <div className="flex bg-bank-lighter-grey p-2 rounded-2xl shadow">
                   <IoMdWallet size="50" />
@@ -75,36 +74,36 @@ export default function FeaturedInfo2() {
               </div>
               <div className="flex justify-center flex-col">
                 <div className="mb-2 mt-2 text-lg font-semibold">
-                  ACCOUNT NAME (SAVINGS)
+                  ACCOUNT NAME
                 </div>
                 <div className="text-base font-semibold text-bank-light-grey">
                   STARTING DATE
                 </div>
               </div>
             </div>
-            <div className="flex ml-12 mt-12">
+            <div className="flex ml-12 mr-12 mt-12">
               <div className="text-4xl font-semibold">1,984.00</div>
             </div>
-            <div className="flex flex-row ml-12 mt-12">
+            <div className="flex flex-row ml-12 mr-12 mt-12">
               <div className="flex flex-row">
-                <div className="flex w-40 text-xl">
+                <div className="flex w-24 sm:w-40 text-xl">
                   5%
-                  <span className="text-bank-letter-grey ml-1">
-                    interest rate
+                  <span className="text-bank-letter-grey whitespace-nowrap ml-1">
+                    interest
                   </span>
                 </div>
               </div>
               <div className="flex flex-row ml-12 text-xl">
                 +500
-                <span className="text-bank-letter-grey ml-1">this month</span>
+                <span className="text-bank-letter-grey whitespace-nowrap ml-1">this month</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex w-full h-full 2xl:w-1/2 items-start justify-center sm:justify-start 2xl:justify-end">
+      <div className="flex h-full w-screen sm:w-full 2xl:w-1/2 items-start justify-center sm:justify-start 2xl:justify-end">
         {/* Pie chart card */}
-        <div className="flex flex-col pb-24 pt-12 mt-8 sm:ml-28 2xl:ml-0 2xl:mr-24 w-5/6 bg-white border rounded-3xl shadow">
+        <div className="flex flex-col pb-24 pt-12 mt-8 mb-4 sm:ml-8 md:ml-16 lg:ml-28 2xl:ml-0 2xl:mr-24 w-5/6 bg-white border rounded-3xl shadow">
           <div className="text-center text-3xl">Top Categories</div>
           <div className="flex flex-shrink-0 justify-center">
             <PieChart width={500} height={500}>
@@ -118,7 +117,6 @@ export default function FeaturedInfo2() {
                 outerRadius={160}
                 fill="#1e1e1e"
                 paddingAngle={2}
-                label
               >
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={colours[index]} />
