@@ -7,5 +7,6 @@ export default function Overview() {
     <div className='overview'>
       <FeaturedInfo/>
     </div>
+    
   )
 }
