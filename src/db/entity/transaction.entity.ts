@@ -4,9 +4,6 @@ import { TransactionCategory } from "./transaction_category.entity"
 
 @Entity()
 export class Transaction {
-    ENTITY_NAME = "Transaction"
-    PK = "transaction_id"
-
     @PrimaryGeneratedColumn("uuid")
     transaction_id: string;
 
@@ -30,16 +27,4 @@ export class Transaction {
 
     @ManyToOne(() => TransactionCategory, (transaction_category) => transaction_category.transactions)
     transaction_category: TransactionCategory;
-
-    constructor(
-        account_id: string,
-        transaction_content: string,
-        transaction_value: number,
-        transaction_category_id: string
-    ) {
-        this.account_id = account_id;
-        this.transaction_content = transaction_content;
-        this.transaction_value = transaction_value;
-        this.transaction_category_id = transaction_category_id;
-    }
 }
