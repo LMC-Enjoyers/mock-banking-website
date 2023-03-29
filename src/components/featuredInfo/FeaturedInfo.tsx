@@ -5,7 +5,7 @@ import { BiTrendingDown } from "react-icons/bi";
 import { BiTrendingUp } from "react-icons/bi";
 import { IoMdWallet } from "react-icons/io";
 
-export default function FeaturedInfo2() {
+export default function FeaturedInfo() {
   //measures the rate by which the money in your bank account has increases / decreased
   // if it has increased it will show a positive trend line, otherwise it will show a negative trend line
   const moneyRate: number = 10.3;

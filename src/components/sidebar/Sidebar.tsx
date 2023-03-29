@@ -1,5 +1,4 @@
 import React from "react";
-import "./sidebar.css";
 import { BsFillGrid1X2Fill } from "react-icons/bs";
 import { BsBarChartSteps } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
