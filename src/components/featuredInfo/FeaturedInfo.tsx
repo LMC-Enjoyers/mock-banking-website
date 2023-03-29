@@ -127,5 +127,6 @@ export default function FeaturedInfo() {
         </div>
       </div>
     </div>
+    
   );
 }

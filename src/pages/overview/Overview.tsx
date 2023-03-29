@@ -1,5 +1,5 @@
 import React from 'react'
-import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo2'
+import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo'
 import './overview.css'
 
 export default function Overview() {
@@ -7,5 +7,6 @@ export default function Overview() {
     <div className='overview'>
       <FeaturedInfo/>
     </div>
+    
   )
 }
