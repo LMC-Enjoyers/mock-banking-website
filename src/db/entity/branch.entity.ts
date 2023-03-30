@@ -3,9 +3,6 @@ import { Account } from "./account.entity"
 
 @Entity()
 export class Branch {
-    ENTITY_NAME = "Branch"
-    PK = "branch_id"
-
     @PrimaryGeneratedColumn("uuid")
     branch_id: string;
 
@@ -20,12 +17,4 @@ export class Branch {
 
     @OneToMany(() => Account, (account: Account) => account.branch)
     accounts: Account[]
-
-    constructor(
-        branch_name: string,
-        branch_sort_code: string
-    ) {
-        this.branch_name = branch_name;
-        this.branch_sort_code = branch_sort_code;
-    }
 }

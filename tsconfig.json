@@ -10,7 +10,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "CommonJS",
@@ -20,7 +19,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "sourceMap": true
   },
   "exclude": [
     "node_modules"

@@ -3,9 +3,6 @@ import { Account } from "./account.entity"
 
 @Entity()
 export class User {
-    ENTITY_NAME = "User"
-    PK = "user_id"
-
     @PrimaryGeneratedColumn("uuid")
     user_id: string;
 
@@ -38,24 +35,4 @@ export class User {
 
     @OneToMany(() => Account, (account: Account) => account.user)
     accounts: Account[]
-
-    constructor(
-        username: string,
-        password: string,
-        first_name: string,
-        middle_name: string,
-        last_name: string,
-        email_address: string,
-        mobile_number: string,
-        dob: Date
-    ) {
-        this.username = username;
-        this.password = password;
-        this.first_name = first_name;
-        this.middle_name = middle_name;
-        this.last_name = last_name;
-        this.email_address = email_address;
-        this.mobile_number = mobile_number;
-        this.dob = dob;
-    }
 }
