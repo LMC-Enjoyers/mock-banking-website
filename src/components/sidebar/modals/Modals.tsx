@@ -9,7 +9,7 @@ export default function CreatAccountModal() {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="block text-white bg-black-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-black-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
         <AiFillBank color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Create Account
@@ -72,7 +72,7 @@ export default function CreatAccountModal() {
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Canncel
+                    Cancel
                   </button>
                 </div>
               </div>
@@ -91,7 +91,7 @@ export function TransferMoney() {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="block text-white bg-black-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-black-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
         <AiFillCreditCard color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Transfer Money
@@ -164,7 +164,7 @@ export function TransferMoney() {
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Canncel
+                    Cancel
                   </button>
                 </div>
               </div>
@@ -184,7 +184,7 @@ export function DeleteAccount() {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="block text-white bg-black-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-black-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
         <AiFillRest color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Delete Account
@@ -243,7 +243,7 @@ export function DeleteAccount() {
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Canncel
+                    Cancel
                   </button>
                 </div>
               </div>
@@ -262,7 +262,7 @@ export function AddFunds() {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="block text-white bg-black-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-black-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
         <AiOutlinePound color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Add Funds
@@ -325,7 +325,7 @@ export function AddFunds() {
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Canncel
+                    Cancel
                   </button>
                 </div>
               </div>

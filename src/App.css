@@ -5,9 +5,9 @@
 @layer components {
 
     .sidebar-item {
-        @apply relative inline-flex items-center justify-center text-lg
-        h-12 mt-2 mb-2 bg-transparent hover:bg-bank-hover-grey hover:rounded-3xl transition-all
-        duration-200 cursor-pointer ease-linear
+        @apply block text-white bg-bank-black hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 
+        font-medium rounded-lg text-sm px-5 py-2.5 m-1 text-center dark:hover:bg-purple-700 dark:focus:ring-purple-800 
+        transition-all duration-200 cursor-pointer ease-linear
     }
 
 }
