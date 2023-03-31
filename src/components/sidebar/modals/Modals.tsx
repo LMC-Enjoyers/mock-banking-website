@@ -4,9 +4,40 @@ import { AiOutlinePound } from "react-icons/ai";
 import { AiFillCreditCard } from "react-icons/ai";
 import { AiFillRest } from "react-icons/ai";
 
+import{ useState } from 'react';
 
-export default function CreatAccountModal() {
+export default function CreateAccountModal() {
   const [showModal, setShowModal] = React.useState(false);
+
+  /*
+  const [formData, setFormData] = useState({
+    accountName: '',
+    accountType: '',
+    remember: false,
+  });
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formData); // or send formData to your server or do whatever you want with it
+  };
+*/
+
+  const [accountName, setAccountName] = useState('');
+  const [accountType, setAccountType] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await fetch('/user_create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ accountName, accountType })
+    });
+    const data = await response.json();
+    console.log(data)
+    // handle response
+  }
+
   return (
     <>
       <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
@@ -39,7 +70,8 @@ export default function CreatAccountModal() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form>
+                  <form onSubmit={handleSubmit} id="CreateAccount">
+                    {/*onSubmit={handleSubmit}*/}
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
@@ -87,6 +119,8 @@ export default function CreatAccountModal() {
 }
 
 
+
+
 export function TransferMoney() {
   const [showModal, setShowModal] = React.useState(false);
   return (
@@ -121,7 +155,7 @@ export function TransferMoney() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form>
+                  <form id="TransferMoney">
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
@@ -214,7 +248,7 @@ export function DeleteAccount() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form>
+                  <form id="DeleteAccount">
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
@@ -292,7 +326,7 @@ export function AddFunds() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form>
+                  <form id="AddFunds">
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
