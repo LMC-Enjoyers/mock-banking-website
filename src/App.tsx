@@ -1,7 +1,7 @@
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import './App.css'
-import FeaturedInfo2 from "./components/featuredInfo/FeaturedInfo2";
+import FeaturedInfo from "./components/featuredInfo/FeaturedInfo";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Sidebar/>
         <div className="flex flex-col flex-grow">
           <Topbar/>
-          <FeaturedInfo2/>
+          <FeaturedInfo/>
         </div>
       </div>
     </div>
