@@ -1,23 +1,27 @@
 import React from "react";
-import ModalAccount from "./modals/accountModal";
+import CreateAccountModal from "./modals/Modals";
 import { BsFillGrid1X2Fill } from "react-icons/bs";
 import { BsBarChartSteps } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { AiFillBank } from "react-icons/ai";
+import { TransferMoney } from "./modals/Modals";
+import { DeleteAccount } from "./modals/Modals";
+import { AddFunds } from "./modals/Modals";
+
 
 export default function Sidebar() {
   return (
     <div className="flex flex-col top-0 left-0 h-auto w-0 sm:w-32 md:w-48 bg-bank-black overflow-auto">
       <div className="flex flex-col w-4/5 h-4/5 self-center mt-32">
         <SidebarItem icon={<BsFillGrid1X2Fill color="white" size='20'/>} item={"Overview"} content={"Overview"}/>
-        <SidebarItem icon={<BsBarChartSteps color="white" size='20'/>} item={"Summary"}  content={"Summary"}/>
-        <ModalAccount/>
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg className="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          <SidbarDropDown/>
-        </button>
-        
+        <CreateAccountModal/>
+        <DeleteAccount/>
+        <AddFunds/>
+        <TransferMoney/>
         <SidebarEnd icon={<BiLogOut color="grey" size='24'/>} item={"Log out"} />
-        
+        <datalist id="all accounts">
+
+        </datalist>
       </div>
     </div>
     
@@ -26,7 +30,7 @@ export default function Sidebar() {
 
 const SidebarItem = ({ icon, item, content }: { icon: any, item: string, content: string }) => (
   
-  <button className="block text-white bg-black-700 hover:bg-black-800 focus:ring-4 focus:outline-none focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-black-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+  <button className="block text-white bg-black-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-black-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
     {icon}
     <div className="text-white font-medium p-4">
       {item}
@@ -46,31 +50,31 @@ const SidebarEnd = ({ icon, item }: { icon: any, item: string }) => (
 
 )
 
-
-
-function SidbarDropDown (){
-
-  return (
-
-    <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-      </li>
-      <li>
-        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
-      <li>
-        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-      </li>
-      <li>
-        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-      </li>
-    </ul>
-</div>
-  )
-}
-
+/*
+const SidebarDropDown = () => (
+  <div className="flex flex-col gap-4">
+    <div className="flex items-center gap-4">
+      <Dropdown
+        label="Dropdown right start"
+        placement="right-start"
+      >
+        <Dropdown.Item>
+          Dashboard
+        </Dropdown.Item>
+        <Dropdown.Item>
+          Settings
+        </Dropdown.Item>
+        <Dropdown.Item>
+          Earnings
+        </Dropdown.Item>
+        <Dropdown.Item>
+          Sign out
+        </Dropdown.Item>
+      </Dropdown>
+    </div>
+  </div>
+)
+*/
 function AccountModalcontent (){
   return (
     <div id="Account" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
