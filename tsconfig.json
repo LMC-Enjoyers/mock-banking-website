@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "outDir": "./src/server/dist",
+    //"outDir": "./src/server/dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -19,7 +19,8 @@
     "jsx": "react-jsx",
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": [
     "node_modules"
