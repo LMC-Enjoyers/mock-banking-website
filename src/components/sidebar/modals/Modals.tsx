@@ -5,7 +5,7 @@ import { AiFillCreditCard } from "react-icons/ai";
 import { AiFillRest } from "react-icons/ai";
 
 
-export default function CreatAccountModal() {
+export default function CreateAccountModal() {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
