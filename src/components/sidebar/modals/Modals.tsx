@@ -23,10 +23,10 @@ export default function CreateAccountModal() {
 
   const [accountName, setAccountName] = useState('');
   const [accountType, setAccountType] = useState('');
-  const endpoint_root = "http://127.0.0.1:5050/"
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(endpoint_root +'user_create', {
+    const response = await fetch('/user_create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export default function CreateAccountModal() {
       body: JSON.stringify({ accountName, accountType })
     });
     const data = await response.json();
-    //console.log(data)
+    console.log(data)
     // handle response
   }
 

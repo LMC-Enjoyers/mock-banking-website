@@ -54,5 +54,5 @@ app.post("/user_details/accounts/transactions", function(req, resp){
     //create a transaction instance and put it under both Account A and B, where A will show negation of B money in.
 })
 
-app.listen(3000)
+app.listen(5050)
 export default app;
