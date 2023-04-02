@@ -10,12 +10,19 @@
 //import { Account } from "../db/entity/account.entity";
 //import { AccountTypeController } from "../db/controller/AccountTypeController"
 //import { AccountType } from "../db/entity/account_type.entity";
+import cors from 'cors';
 const express = require('express');
 const app = express();
 app.use(express.json())
 
 //app.use(express.static(path.join(__dirname, "src/App.tsx")))
 
+const corsOptions = {
+    origin: 'localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
+  };
+  app.use(cors(corsOptions));
 
 app.get("/user_details", function(req, resp){
 	console.log("passed thru here 3")
@@ -31,6 +38,7 @@ app.get("/user_details/accounts_details/transactions_made", function(req, resp){
 })
 
 app.post("/user_create", function(req, resp){
+	resp.send("test")
 	//new user is created
 })
 app.post("/user_details/accounts/create", function(req, resp){
@@ -46,5 +54,5 @@ app.post("/user_details/accounts/transactions", function(req, resp){
     //create a transaction instance and put it under both Account A and B, where A will show negation of B money in.
 })
 
-app.listen(5050)
+app.listen(3000)
 export default app;

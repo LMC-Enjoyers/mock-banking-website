@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@types/bonjour": "^3.5.10",
+    "@types/cors": "^2.8.13",
     "tailwindcss": "^3.2.7"
   }
 }
