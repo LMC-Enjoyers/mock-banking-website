@@ -12,7 +12,9 @@ export class AccountController extends BaseController<Account> {
     async getTransactions(account_id: string): Promise<Transaction[]> {
         await ensureInitialisedDB();
 
-        const transactions = await AppDataSource.getRepository(Transaction)
+        const transactionRepository = await AppDataSource.getRepository(Transaction);
+
+        const transactions = transactionRepository
             .createQueryBuilder("transaction")
             .where("transaction.account_id = :id", { id: account_id })
             .getMany();
@@ -23,7 +25,9 @@ export class AccountController extends BaseController<Account> {
     async getCurrentBalance(account_id: string): Promise<number> {
         await ensureInitialisedDB();
 
-        const currentBalance = await AppDataSource.getRepository(Transaction)
+        const transactionRepository = await AppDataSource.getRepository(Transaction);
+
+        const currentBalance: any = transactionRepository
             .createQueryBuilder("transaction")
             .select("SUM(transaction.transaction_value)", "balance")
             .where("transaction.account_id = :id", { id: account_id })
