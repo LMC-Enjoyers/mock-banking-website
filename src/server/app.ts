@@ -1,16 +1,8 @@
-import { BranchController } from "../db/controller/BranchController"
-import { Branch } from "../db/entity/branch.entity";
-import { TransactionCategoryController } from "../db/controller/TransactionCategoryController"
-import { TransactionCategory } from "../db/entity/transaction_category.entity";
 import { TransactionController } from "../db/controller/TransactionController"
 import { Transaction } from "../db/entity/transaction.entity";
 import { UserController } from "../db/controller/UserController"
-import { User } from "../db/entity/user.entity";
 import { AccountController } from "../db/controller/AccountController"
 import { Account } from "../db/entity/account.entity";
-import { AccountTypeController } from "../db/controller/AccountTypeController"
-import { AccountType } from "../db/entity/account_type.entity";
-import { BaseController } from "../db/controller/BaseController"
 const express = require('express');
 const app = express();
 app.use(express.json())
