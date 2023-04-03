@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 //import { BranchController } from "../db/controller/BranchController"
 //import { Branch } from "../db/entity/branch.entity";
 //import { TransactionCategoryController } from "../db/controller/TransactionCategoryController"
@@ -12,17 +12,10 @@ exports.__esModule = true;
 //import { Account } from "../db/entity/account.entity";
 //import { AccountTypeController } from "../db/controller/AccountTypeController"
 //import { AccountType } from "../db/entity/account_type.entity";
-var cors_1 = require("cors");
 var express = require('express');
 var app = express();
-app.use(express.json());
-//app.use(express.static(path.join(__dirname, "src/App.tsx")))
-var corsOptions = {
-    origin: 'localhost:3000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type']
-};
-app.use((0, cors_1["default"])(corsOptions));
+var cors = require('cors');
+app.use(cors());
 app.get("/user_details", function (req, resp) {
     console.log("passed thru here 3");
     resp.send("yes 4");
@@ -51,5 +44,5 @@ app.post("/user_details/accounts/transactions", function (req, resp) {
     //subtract money from balance A and add equivalent to Account B
     //create a transaction instance and put it under both Account A and B, where A will show negation of B money in.
 });
-app.listen(3000);
-exports["default"] = app;
+app.listen(5050);
+exports.default = app;

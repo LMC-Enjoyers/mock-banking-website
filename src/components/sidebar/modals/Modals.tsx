@@ -6,6 +6,8 @@ import { AiFillRest } from "react-icons/ai";
 
 import{ useState } from 'react';
 
+const endpointRoot = "http://127.0.0.1:5050/";
+
 export default function CreateAccount() {
   const [showModal, setShowModal] = React.useState(false);
 
@@ -323,13 +325,7 @@ export function AddFunds() {
                       </div>
                     <div className="mb-6">
                       <label htmlFor="account name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Amount</label>
-                      <input type="Number" id="account name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required></input>
-                    </div> 
-                    <div className="flex items-start mb-6">
-                      <div className="flex items-center h-5">
-                        <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required></input>
-                      </div>
-                      <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-black-300">I agree with the <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
+                      <input type="number" id="account name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required></input>
                     </div>
                     <button type="submit" className="text-white bg-emerald-500 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Transfer</button>
                   </form>
@@ -369,15 +365,14 @@ export function TransferMoney() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      console.log("hi")
-      const response = await fetch('/user_details', {
+      const response = await fetch(endpointRoot + 'user_create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
-      const data = await response.json();
+      const data = await response;
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -427,20 +422,20 @@ export function TransferMoney() {
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">To</label>
                         <select name="from" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                           <option selected value="" disabled>Current</option>
-                          <option value="CA">Savings</option>
-                          <option value="FR">Business</option>
-                          <option value="DE">Child</option>
-                          <option value="DE">Student</option>
+                          <option value="SA">Savings</option>
+                          <option value="BS">Business</option>
+                          <option value="CH">Child</option>
+                          <option value="ST">Student</option>
                         </select>
                       </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">From</label>
                         <select name="to" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                           <option selected value="" disabled>Current</option>
-                          <option value="CA">Savings</option>
-                          <option value="FR">Business</option>
-                          <option value="DE">Child</option>
-                          <option value="DE">Student</option>
+                          <option value="SA">Savings</option>
+                          <option value="BS">Business</option>
+                          <option value="CH">Child</option>
+                          <option value="ST">Student</option>
                         </select>
                     </div>
                     <div className="mb-6">
