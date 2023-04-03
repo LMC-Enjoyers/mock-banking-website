@@ -1,14 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
+import { BaseEntity } from './base_entity.entity';
 import { User } from "./user.entity"
 import { Branch } from "./branch.entity"
 import { AccountType } from "./account_type.entity"
 import { Transaction } from "./transaction.entity"
 
 @Entity()
-export class Account {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
-
+export class Account extends BaseEntity {
     @Column({ type: 'varchar', length: 36 })
     user_id: string;
 
@@ -20,9 +18,6 @@ export class Account {
 
     @Column({ type: 'varchar', length: 36 })
     account_type_id: string;
-
-    @CreateDateColumn()
-    create_time: Date;
 
     @ManyToOne(() => User, (user) => user.accounts)
     user: User;
