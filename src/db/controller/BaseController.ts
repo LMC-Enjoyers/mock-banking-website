@@ -9,7 +9,7 @@ export abstract class BaseController<T> {
         return this.getRepository().find();
     }
 
-    async getByID(id: string): Promise<T> {
+    async get(id: string): Promise<T> {
         await ensureInitialisedDB();
         return this.getRepository()
             .createQueryBuilder("entity")
@@ -20,5 +20,10 @@ export abstract class BaseController<T> {
     async insert(entity: T): Promise<void> {
         await ensureInitialisedDB();
         await this.getRepository().save(entity);
+    }
+
+    async delete(id: string): Promise<void> {
+        await ensureInitialisedDB();
+        await this.getRepository().delete(id);
     }
 }
