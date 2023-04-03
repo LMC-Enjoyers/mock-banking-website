@@ -10,12 +10,12 @@ export class UserController extends BaseController<User> {
         return AppDataSource.getRepository(User);
     }
 
-    async getAllAccounts(user_id: string): Promise<Account[]> {
+    async getAccounts(user_id: string): Promise<Account[]> {
         await ensureInitialisedDB();
 
         const accountRepository = await AppDataSource.getRepository(Account);
 
-        const accounts = accountRepository
+        const accounts = await accountRepository
             .createQueryBuilder("account")
             .where("account.user_id = :user_id", { user_id })
             .getMany();

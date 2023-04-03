@@ -15,7 +15,7 @@ app.get("/user", async(req, resp)=>{
 })
 app.get("/acc", async(req, resp)=>{
 	const acc = new UserController()
-	const acc_det = await acc.getAllAccounts(req.body.user_id)
+	const acc_det = await acc.getAccounts(req.body.user_id)
 	resp.send(acc_det)
 })
 app.get("/transac_made", async(req, resp)=>{

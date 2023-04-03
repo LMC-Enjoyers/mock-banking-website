@@ -14,7 +14,7 @@ export class AccountController extends BaseController<Account> {
 
         const transactionRepository = await AppDataSource.getRepository(Transaction);
 
-        const transactions = transactionRepository
+        const transactions = await transactionRepository
             .createQueryBuilder("transaction")
             .where("transaction.account_id = :id", { id: account_id })
             .getMany();
@@ -27,7 +27,7 @@ export class AccountController extends BaseController<Account> {
 
         const transactionRepository = await AppDataSource.getRepository(Transaction);
 
-        const currentBalance: any = transactionRepository
+        const currentBalance: any = await transactionRepository
             .createQueryBuilder("transaction")
             .select("SUM(transaction.transaction_value)", "balance")
             .where("transaction.account_id = :id", { id: account_id })
