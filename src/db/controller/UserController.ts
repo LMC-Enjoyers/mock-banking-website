@@ -1,23 +1,11 @@
-import { AppDataSource, ensureInitialisedDB } from "../data-source";
+import { Repository } from "typeorm";
+import { AppDataSource} from "../data-source";
 import { User } from "../entity/user.entity";
+import { BaseController } from "./BaseController";
 
-export class UserController {
-
-    static async getAll(): Promise<User[]> {
-        await ensureInitialisedDB()
-        return AppDataSource.manager.find(User);
-    }
-
-    static async getByID(user_id: string): Promise<User> {
-        await ensureInitialisedDB()
-        return AppDataSource
-                .getRepository(User)
-                .createQueryBuilder("user")
-                .where("user.user_id = :id", { id: user_id })
-                .getOne()
-    }
-
-    static async insert(user: User): Promise<void> {
-        await AppDataSource.manager.save(user)
+export class UserController extends BaseController<User> {
+    
+    protected getRepository(): Repository<User> {
+        return AppDataSource.getRepository(User);
     }
 }

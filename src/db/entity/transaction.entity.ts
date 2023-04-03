@@ -5,7 +5,7 @@ import { TransactionCategory } from "./transaction_category.entity"
 @Entity()
 export class Transaction {
     @PrimaryGeneratedColumn("uuid")
-    transaction_id: string;
+    id: string;
 
     @Column({ type: 'varchar', length: 36 })
     account_id: string;

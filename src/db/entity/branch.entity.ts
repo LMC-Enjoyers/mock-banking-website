@@ -4,7 +4,7 @@ import { Account } from "./account.entity"
 @Entity()
 export class Branch {
     @PrimaryGeneratedColumn("uuid")
-    branch_id: string;
+    id: string;
 
     @Column({ type: 'varchar', length: 64 })
     branch_name: string;

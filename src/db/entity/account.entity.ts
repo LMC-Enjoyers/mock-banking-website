@@ -7,7 +7,7 @@ import { Transaction } from "./transaction.entity"
 @Entity()
 export class Account {
     @PrimaryGeneratedColumn("uuid")
-    account_id: string;
+    id: string;
 
     @Column({ type: 'varchar', length: 36 })
     user_id: string;
