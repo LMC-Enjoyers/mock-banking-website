@@ -1,11 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { BaseEntity } from './base_entity.entity';
 import { Account } from "./account.entity"
 
 @Entity()
-export class User {
-    @PrimaryGeneratedColumn("uuid")
-    user_id: string;
-
+export class User extends BaseEntity {
     @Column({ type: 'varchar', length: 32 })
     username: string;
 
@@ -29,9 +27,6 @@ export class User {
 
     @Column({ type: 'date' })
     dob: Date;
-
-    @CreateDateColumn()
-    create_time: Date;
 
     @OneToMany(() => Account, (account: Account) => account.user)
     accounts: Account[]

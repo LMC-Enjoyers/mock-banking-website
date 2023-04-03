@@ -1,16 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { BaseEntity } from './base_entity.entity';
 import { Transaction } from "./transaction.entity"
 
 @Entity()
-export class TransactionCategory {
-    @PrimaryGeneratedColumn("uuid")
-    transaction_category_id: string;
-
+export class TransactionCategory extends BaseEntity {
     @Column({ type: 'varchar', length: 32 })
     category_name: string;
-
-    @CreateDateColumn()
-    create_time: Date;
 
     @OneToMany(() => Transaction, (transaction: Transaction) => transaction.account)
     transactions: Transaction[]

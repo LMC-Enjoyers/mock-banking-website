@@ -1,50 +1,52 @@
-//import { BranchController } from "../db/controller/BranchController"
-//import { Branch } from "../db/entity/branch.entity";
-//import { TransactionCategoryController } from "../db/controller/TransactionCategoryController"
-//import { TransactionCategory } from "../db/entity/transaction_category.entity";
-//import { TransactionController } from "../db/controller/TransactionController"
-//import { Transaction } from "../db/entity/transaction.entity";
-//import { UserController } from "../db/controller/UserController"
-//import { User } from "../db/entity/user.entity";
-//import { AccountController } from "../db/controller/AccountController"
-//import { Account } from "../db/entity/account.entity";
-//import { AccountTypeController } from "../db/controller/AccountTypeController"
-//import { AccountType } from "../db/entity/account_type.entity";
+import { TransactionController } from "../db/controller/TransactionController"
+import { Transaction } from "../db/entity/transaction.entity";
+import { UserController } from "../db/controller/UserController"
+import { AccountController } from "../db/controller/AccountController"
+import { Account } from "../db/entity/account.entity";
 const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors())
 
-
-app.get("/user_details", function(req, resp){
-	console.log("passed thru here 3")
-	resp.send("yes 4")
+app.get("/user", async(req, resp)=>{
+	const user = new UserController()
+	const user_det = await user.getUser(req.body.username, req.body.password)
+	resp.send(user_det)
 })
-app.get("/user_details/accounts_details", function(req, resp){
-	//insert sort code, account number, balance
-    // needs to do ^^ for all account - should be easy with a query
+app.get("/acc", async(req, resp)=>{
+	const acc = new UserController()
+	const acc_det = await acc.getAllAccounts(req.body.user_id)
+	resp.send(acc_det)
 })
-app.get("/user_details/accounts_details/transactions_made", function(req, resp){
-	//lists all transactions from the specified account - The listed transactions should state amount in/out, sort code and account number
-    // needs to do ^^ for all transactions - should be easy with a query
-})
-
-app.post("/user_create", function(req, resp){
-	resp.send("test")
-	//new user is created
-})
-app.post("/user_details/accounts/create", function(req, resp){
-	//new account created from a specific user
-    // will need to assign it a sort code and account number (mock)
-})
-app.post("/user_details/accounts/delete", function(req, resp){
-	//simply removes an account from a specific user
-})
-app.post("/user_details/accounts/transactions", function(req, resp){
-	//a user has moved money from Account A to Account B (doesn't matter abt the user)
-    //subtract money from balance A and add equivalent to Account B
-    //create a transaction instance and put it under both Account A and B, where A will show negation of B money in.
+app.get("/transac_made", async(req, resp)=>{
+	const transc = new AccountController()
+	const trans_made = await transc.getTransactions(req.body.acc_id)
+	resp.send(trans_made)
 })
 
-app.listen(5050)
+
+app.post("/new_acc", async(req, resp)=>{
+	const new_acc = new Account()
+	const ac = new AccountController()
+	new_acc.account_no = "12345"//mock numbers obv
+	new_acc.sort_code = "54321"
+	new_acc.user_id = req.body.user_id
+	await ac.insert(new_acc)
+	resp.status(200).send()
+})
+app.post("/del_acc", async(req, resp)=>{
+	const del = new AccountController()
+	await del.delete(req.body.id)
+	resp.status(204).send()
+})
+app.post("/new_transac", async(req, resp)=>{
+	const new_tr = new Transaction()
+	const tc = new TransactionController()
+	new_tr.account_id = req.body.acc_id
+	new_tr.transaction_content = req.body.content
+	new_tr.transaction_value = req.body.val
+	await tc.insert(new_tr)
+	resp.status(200).send()
+})
+
 export default app;
