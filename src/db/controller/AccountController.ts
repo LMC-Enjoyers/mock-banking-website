@@ -1,23 +1,38 @@
-import { AppDataSource, ensureInitialisedDB } from "../data-source";
+import { Repository } from "typeorm";
+import { AppDataSource, ensureInitialisedDB} from "../data-source";
 import { Account } from "../entity/account.entity";
+import { Transaction } from "../entity/transaction.entity";
+import { BaseController } from "./BaseController";
 
-export class AccountController {
-
-    static async getAll(): Promise<Account[]> {
-        await ensureInitialisedDB()
-        return AppDataSource.manager.find(Account);
+export class AccountController extends BaseController<Account> {
+    protected getRepository(): Repository<Account> {
+        return AppDataSource.getRepository(Account);
     }
 
-    static async getByID(account_id: string): Promise<Account> {
-        await ensureInitialisedDB()
-        return AppDataSource
-                .getRepository(Account)
-                .createQueryBuilder("account")
-                .where("account.account_id = :id", { id: account_id })
-                .getOne()
+    async getTransactions(account_id: string): Promise<Transaction[]> {
+        await ensureInitialisedDB();
+
+        const transactionRepository = await AppDataSource.getRepository(Transaction);
+
+        const transactions = transactionRepository
+            .createQueryBuilder("transaction")
+            .where("transaction.account_id = :id", { id: account_id })
+            .getMany();
+
+        return transactions;
     }
 
-    static async insert(account: Account): Promise<void> {
-        await AppDataSource.manager.save(account)
+    async getCurrentBalance(account_id: string): Promise<number> {
+        await ensureInitialisedDB();
+
+        const transactionRepository = await AppDataSource.getRepository(Transaction);
+
+        const currentBalance: any = transactionRepository
+            .createQueryBuilder("transaction")
+            .select("SUM(transaction.transaction_value)", "balance")
+            .where("transaction.account_id = :id", { id: account_id })
+            .getRawOne();
+
+        return currentBalance.balance;
     }
 }

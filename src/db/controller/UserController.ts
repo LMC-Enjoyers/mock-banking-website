@@ -1,23 +1,38 @@
-import { AppDataSource, ensureInitialisedDB } from "../data-source";
+import { Repository } from "typeorm";
+import { AppDataSource, ensureInitialisedDB} from "../data-source";
+import { Account } from "../entity/account.entity";
 import { User } from "../entity/user.entity";
+import { BaseController } from "./BaseController";
 
-export class UserController {
-
-    static async getAll(): Promise<User[]> {
-        await ensureInitialisedDB()
-        return AppDataSource.manager.find(User);
+export class UserController extends BaseController<User> {
+    
+    protected getRepository(): Repository<User> {
+        return AppDataSource.getRepository(User);
     }
 
-    static async getByID(user_id: string): Promise<User> {
-        await ensureInitialisedDB()
-        return AppDataSource
-                .getRepository(User)
-                .createQueryBuilder("user")
-                .where("user.user_id = :id", { id: user_id })
-                .getOne()
+    async getAllAccounts(user_id: string): Promise<Account[]> {
+        await ensureInitialisedDB();
+
+        const accountRepository = await AppDataSource.getRepository(Account);
+
+        const accounts = accountRepository
+            .createQueryBuilder("account")
+            .where("account.user_id = :user_id", { user_id })
+            .getMany();
+
+        return accounts;
     }
 
-    static async insert(user: User): Promise<void> {
-        await AppDataSource.manager.save(user)
+    async getUser(username: string, password: string): Promise<User> {
+        await ensureInitialisedDB();
+
+        const user = await this.getRepository()
+            .createQueryBuilder("user")
+            .where("user.username = :username", { username: username })
+            .andWhere("user.password = :password", { password: password })
+            .getOne();
+
+        return user;
+    
     }
 }
