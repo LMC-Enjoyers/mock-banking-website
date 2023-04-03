@@ -17,7 +17,7 @@ async function test() {
     console.log("Loaded branches: ", branches)
 
     console.log("Added branch: ", newBranch);
-    await bc.delete(newBranch.id)
+    await bc.delete(newBranch.getID())
 
     const branches2 = await bc.getAll();
     console.log("Loaded branches: ", branches2)
