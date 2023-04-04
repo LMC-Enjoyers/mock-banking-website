@@ -8,4 +8,14 @@ export class TransactionCategoryController extends BaseController<TransactionCat
     protected getRepository(): Repository<TransactionCategory> {
         return AppDataSource.getRepository(TransactionCategory);
     }
+
+    getCategoryIDbyName(name: string): Promise<string> {
+        return this.getRepository().createQueryBuilder("transaction_category")
+            .select("transaction_category.id")
+            .where("transaction_category.category_name = :name", {name: name})
+            .getRawOne()
+            .then((result) => {
+                return result.transaction_category_id;
+            })
+    }
 }
