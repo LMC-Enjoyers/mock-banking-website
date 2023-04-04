@@ -28,9 +28,11 @@ app.get("/transac_made", async(req, resp)=>{
 app.post("/new_acc", async(req, resp)=>{
 	const new_acc = new Account()
 	const ac = new AccountController()
-	new_acc.account_no = Math.floor(Math.random() * Math.pow(10, 8) - 1).toString();
+	// Need to check if duplicate account number or instead use 
+	// new_acc.account_no = Math.floor(Math.random() * Math.pow(10, 8) - 1).toString();
+	new_acc.account_no = req.body.account_name
 	new_acc.sort_code = "123456"
-	new_acc.user_id = req.body.user_id
+	new_acc.user_id = "a9bbc01b-40bd-4f93-9f87-fa0614a459b7"
 	await ac.insert(new_acc)
 	resp.status(200).send()
 })
