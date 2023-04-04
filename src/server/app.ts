@@ -11,12 +11,12 @@ app.use(cors())
 
 app.get("/user", async(req, resp)=>{
 	const user = new UserController()
-	const user_det = await user.getUser(req.body.username, req.body.password)
+	const user_det = await user.getUser("johnny12", "password")
 	resp.send(user_det)
 })
 app.get("/acc", async(req, resp)=>{
 	const acc = new UserController()
-	const acc_det = await acc.getAccounts(req.body.user_id)
+	const acc_det = await acc.getAccounts("a9bbc01b-40bd-4f93-9f87-fa0614a459b7")
 	resp.send(acc_det)
 })
 app.get("/transac_made", async(req, resp)=>{
@@ -24,7 +24,6 @@ app.get("/transac_made", async(req, resp)=>{
 	const trans_made = await transc.getTransactions(req.body.acc_id)
 	resp.send(trans_made)
 })
-
 
 app.post("/new_acc", async(req, resp)=>{
 	const new_acc = new Account()
