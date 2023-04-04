@@ -41,6 +41,7 @@ var transaction_entity_1 = require("../db/entity/transaction.entity");
 var UserController_1 = require("../db/controller/UserController");
 var AccountController_1 = require("../db/controller/AccountController");
 var account_entity_1 = require("../db/entity/account.entity");
+var TransactionCategoryController_1 = require("../db/controller/TransactionCategoryController");
 var express = require('express');
 var app = express();
 var cors = require('cors');
@@ -51,7 +52,7 @@ app.get("/user", function (req, resp) { return __awaiter(void 0, void 0, void 0,
         switch (_a.label) {
             case 0:
                 user = new UserController_1.UserController();
-                return [4 /*yield*/, user.getUser(req.body.username, req.body.password)];
+                return [4 /*yield*/, user.getUser("johnny12", "password")];
             case 1:
                 user_det = _a.sent();
                 resp.send(user_det);
@@ -64,8 +65,9 @@ app.get("/acc", function (req, resp) { return __awaiter(void 0, void 0, void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log("hi");
                 acc = new UserController_1.UserController();
-                return [4 /*yield*/, acc.getAccounts(req.body.user_id)];
+                return [4 /*yield*/, acc.getAccounts("a9bbc01b-40bd-4f93-9f87-fa0614a459b7")];
             case 1:
                 acc_det = _a.sent();
                 resp.send(acc_det);
@@ -94,8 +96,8 @@ app.post("/new_acc", function (req, resp) { return __awaiter(void 0, void 0, voi
             case 0:
                 new_acc = new account_entity_1.Account();
                 ac = new AccountController_1.AccountController();
-                new_acc.account_no = "12345"; //mock numbers obv
-                new_acc.sort_code = "54321";
+                new_acc.account_no = Math.floor(Math.random() * Math.pow(10, 8) - 1).toString();
+                new_acc.sort_code = "123456";
                 new_acc.user_id = req.body.user_id;
                 return [4 /*yield*/, ac.insert(new_acc)];
             case 1:
@@ -119,18 +121,35 @@ app.post("/del_acc", function (req, resp) { return __awaiter(void 0, void 0, voi
         }
     });
 }); });
-app.post("/new_transac", function (req, resp) { return __awaiter(void 0, void 0, void 0, function () {
-    var new_tr, tc;
+app.post("/new_transfer", function (req, resp) { return __awaiter(void 0, void 0, void 0, function () {
+    var tcc, transferCategoryID, tc, new_transaction_out, ac, destination__acc_id, new_transaction_in;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                new_tr = new transaction_entity_1.Transaction();
-                tc = new TransactionController_1.TransactionController();
-                new_tr.account_id = req.body.acc_id;
-                new_tr.transaction_content = req.body.content;
-                new_tr.transaction_value = req.body.val;
-                return [4 /*yield*/, tc.insert(new_tr)];
+                tcc = new TransactionCategoryController_1.TransactionCategoryController();
+                return [4 /*yield*/, tcc.getCategoryIDbyName("Transfer")];
             case 1:
+                transferCategoryID = _a.sent();
+                tc = new TransactionController_1.TransactionController();
+                new_transaction_out = new transaction_entity_1.Transaction();
+                new_transaction_out.account_id = req.body.source_acc_id;
+                new_transaction_out.transaction_content = req.body.content;
+                new_transaction_out.transaction_value = -req.body.value; // negative value for outgoing transaction
+                new_transaction_out.transaction_category_id = transferCategoryID;
+                return [4 /*yield*/, tc.insert(new_transaction_out)];
+            case 2:
+                _a.sent();
+                ac = new AccountController_1.AccountController();
+                return [4 /*yield*/, ac.getAccountID(req.body.destination_account_no, req.body.destination_sort_code)];
+            case 3:
+                destination__acc_id = _a.sent();
+                new_transaction_in = new transaction_entity_1.Transaction();
+                new_transaction_in.account_id = destination__acc_id;
+                new_transaction_in.transaction_content = req.body.content;
+                new_transaction_in.transaction_value = req.body.value; // positive value for incoming transaction
+                new_transaction_in.transaction_category_id = transferCategoryID;
+                return [4 /*yield*/, tc.insert(new_transaction_in)];
+            case 4:
                 _a.sent();
                 resp.status(200).send();
                 return [2 /*return*/];

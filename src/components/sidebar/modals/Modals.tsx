@@ -3,11 +3,18 @@ import { AiFillBank } from "react-icons/ai";
 import { AiOutlinePound } from "react-icons/ai";
 import { AiFillCreditCard } from "react-icons/ai";
 import { AiFillRest } from "react-icons/ai";
-
 import{ useState } from 'react';
-import { AccountType } from "../../../db/entity/account_type.entity";
 
 const endpointRoot = "http://127.0.0.1:5050/";
+
+interface Account {
+  id: string;
+  create_time: string;
+  user_id: string;
+  account_no: string;
+  sort_code: string;
+  account_type_id: string;
+}
 
 export default function CreateAccount() {
   const [showModal, setShowModal] = React.useState(false);
@@ -135,15 +142,6 @@ export default function CreateAccount() {
 
 }
 
-interface Account {
-  id: string;
-  create_time: string;
-  user_id: string;
-  account_no: string;
-  sort_code: string;
-  account_type_id: string;
-}
-
 export function SwitchAccount() {
   const [showModal, setShowModal] = React.useState(false);
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -155,16 +153,16 @@ export function SwitchAccount() {
     setAccounts(data);
   }
 
+  const showAndUpdate = async () => {
+    setShowModal(true)
+    getData()
+  }
+
   /* const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedAccountId = event.target.value;
     const selectedAccount = accounts.find(account => account.id === selectedAccountId);
     setSelectedAccount(selectedAccount || null);
   } */
-
-  const showAndUpdate = async () => {
-    setShowModal(true)
-    getData()
-  }
 
   return (
     <>
@@ -205,7 +203,7 @@ export function SwitchAccount() {
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
                         <select /* onChange={handleChange} */ id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                           {accounts.map(account => (
-                            <option value={account.id}>{account.account_no}</option>
+                            <option key={account.id} value={account.id}>{account.account_no}</option>
                           ))}
                         </select>
                       </div>
@@ -235,12 +233,20 @@ export function SwitchAccount() {
 
 export function DeleteAccount() {
   const [showModal, setShowModal] = React.useState(false);
-
   var [accountName, setAccountDelete] = useState('');
-  
 
-  //console.log("AN " + accountName);
-  //console.log("AT " + accountType);
+  const [accounts, setAccounts] = useState<Account[]>([]);
+
+  const getData = async () => {
+    const response = await fetch(endpointRoot + 'acc');
+    const data: Account[] = await response.json();
+    setAccounts(data);
+  }
+
+  const showAndUpdate = async () => {
+    setShowModal(true)
+    getData()
+  }
 
   const handleSubmit = async (event) => {
     if(accountName === ''){
@@ -268,7 +274,7 @@ export function DeleteAccount() {
   }
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
+      <button onClick={() => showAndUpdate()} className="sidebar-item" type="button">
         <AiFillRest color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Delete Account
@@ -303,12 +309,10 @@ export function DeleteAccount() {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
-                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setAccountDelete(e.target.value)} required>
-                          <option selected>Current</option>
-                          <option value="CA">Savings</option>
-                          <option value="FR">Business</option>
-                          <option value="DE">Child</option>
-                          <option value="DE">Student</option>
+                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setAccountDelete(e.target.value)} required>
+                          {accounts.map(account => (
+                            <option key={account.id} value={account.id}>{account.account_no}</option>
+                          ))}
                         </select>
                       </div>
                     <div className="flex items-start mb-6">
@@ -342,7 +346,7 @@ export function DeleteAccount() {
 }
 
 
-export function Tranfer() {
+export function Transfer() {
   const [showModal, setShowModal] = React.useState(false);
 
   var [account, setAccount] = useState('');
@@ -382,7 +386,7 @@ export function Tranfer() {
       <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
         <AiOutlinePound color="white" size='20'/>
         <div className="text-white font-medium p-4">
-          Tranfer
+          Transfer
         </div>
       </button>
       {showModal ? (
@@ -415,11 +419,7 @@ export function Tranfer() {
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
                         <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setAccount(e.target.value)} required>
-                          <option selected>Current</option>
-                          <option value="CA">Savings</option>
-                          <option value="FR">Business</option>
-                          <option value="DE">Child</option>
-                          <option value="DE">Student</option>
+                          
                         </select>
                       </div>
                     <div className="mb-6">
@@ -458,18 +458,30 @@ interface TransferValues {
   to: string;
   from: string;
   amount: number;
+  reason: string;
 }
 
-{ /* unused */}
 export function TransferMoney() {
   const [showModal, setShowModal] = React.useState(false);
+  const [accounts, setAccounts] = useState<Account[]>([]);
 
-  const [values, setValues] = useState<TransferValues>({ to: '', from: '', amount: 0 });
+  const getData = async () => {
+    const response = await fetch(endpointRoot + 'acc');
+    const data: Account[] = await response.json();
+    setAccounts(data);
+  }
+
+  const showAndUpdate = async () => {
+    setShowModal(true)
+    getData()
+  }
+
+  const [values, setValues] = useState<TransferValues>({ to: '', from: '', amount: 0, reason: "" });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch(endpointRoot + 'user_create', {
+      const response = await fetch(endpointRoot + 'new_transfer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -489,7 +501,7 @@ export function TransferMoney() {
   };
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
+      <button onClick={() => showAndUpdate()} className="sidebar-item" type="button">
         <AiFillCreditCard color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Transfer Money
@@ -524,28 +536,28 @@ export function TransferMoney() {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">To</label>
-                        <select name="from" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                          <option selected value="" disabled>Current</option>
-                          <option value="SA">Savings</option>
-                          <option value="BS">Business</option>
-                          <option value="CH">Child</option>
-                          <option value="ST">Student</option>
+                        <select onChange={handleChange} name="from" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                          {accounts.map(account => (
+                            <option key={account.id} value={account.id}>{account.account_no}</option>
+                          ))}
                         </select>
                       </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">From</label>
-                        <select name="to" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                          <option selected value="" disabled>Current</option>
-                          <option value="SA">Savings</option>
-                          <option value="BS">Business</option>
-                          <option value="CH">Child</option>
-                          <option value="ST">Student</option>
+                        <select onChange={handleChange} name="to" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                          {accounts.map(account => (
+                            <option key={account.id} value={account.id}>{account.account_no}</option>
+                          ))}
                         </select>
-                    </div>
+                    </div> 
                     <div className="mb-6">
                       <label htmlFor="account name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Amount</label>
                       <input onChange={handleChange} name="amount" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required></input>
-                    </div> 
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="account name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Reason</label>
+                      <input onChange={handleChange} name="reason" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bought ..." required></input>
+                    </div>
                     <button type="submit" className="text-white bg-emerald-500 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Transfer</button>
                   </form>
                 </div>

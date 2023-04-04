@@ -109,6 +109,30 @@ var AccountController = /** @class */ (function (_super) {
             });
         });
     };
+    AccountController.prototype.getAccountID = function (account_no, sort_code) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accountRepository, account;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, data_source_1.ensureInitialisedDB)()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, data_source_1.AppDataSource.getRepository(account_entity_1.Account)];
+                    case 2:
+                        accountRepository = _a.sent();
+                        return [4 /*yield*/, accountRepository
+                                .createQueryBuilder("account")
+                                .select("account.id")
+                                .where("account.account_no = :account_no", { account_no: account_no })
+                                .andWhere("account.sort_code = :sort_code", { sort_code: sort_code })
+                                .getRawOne()];
+                    case 3:
+                        account = _a.sent();
+                        return [2 /*return*/, account.account_id];
+                }
+            });
+        });
+    };
     return AccountController;
 }(BaseController_1.BaseController));
 exports.AccountController = AccountController;
