@@ -37,7 +37,7 @@ export default function CreateAccount() {
     event.preventDefault();
     console.log('Sending request with accountName:', accountName, 'and accountType:', accountType);
     try{
-    const dataJSON = JSON.stringify({accountName, accountType});
+    const dataJSON = JSON.stringify({accountName});
     console.log(dataJSON)
     const response = await fetch(endpointRoot + 'new_acc', {
       method: 'POST',
@@ -225,7 +225,7 @@ export function DeleteAccount() {
     try{
     const dataJSON = JSON.stringify({accountName});
     console.log(dataJSON)
-    const response = await fetch(endpointRoot + 'new_acc', {
+    const response = await fetch(endpointRoot + 'del_acc', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -335,7 +335,7 @@ export function Tranfer() {
     try{
     const dataJSON = JSON.stringify({account, amount, reason});
     console.log(dataJSON)
-    const response = await fetch(endpointRoot + 'new_acc', {
+    const response = await fetch(endpointRoot + 'new_transac', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
