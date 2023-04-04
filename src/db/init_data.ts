@@ -33,6 +33,12 @@ async function test() {
     await AddUser();
     await addAccounts();
     await addTransactions();
+
+    const tt_c = new TransactionCategoryController();
+
+    const deposit = new TransactionCategory();
+    deposit.category_name = "Transfer";
+    await tt_c.insert(deposit);
 };
 
 async function addAccountTypes() {

@@ -3,6 +3,7 @@ import { Transaction } from "../db/entity/transaction.entity";
 import { UserController } from "../db/controller/UserController"
 import { AccountController } from "../db/controller/AccountController"
 import { Account } from "../db/entity/account.entity";
+import { TransactionCategoryController } from "../db/controller/TransactionCategoryController";
 const express = require('express');
 const app = express();
 app.use(express.json())
@@ -39,14 +40,28 @@ app.post("/del_acc", async(req, resp)=>{
 	await del.delete(req.body.id)
 	resp.status(204).send()
 })
-app.post("/new_transac", async(req, resp)=>{
-	const new_tr = new Transaction()
-	const tc = new TransactionController()
-	new_tr.account_id = req.body.acc_id
-	new_tr.transaction_content = req.body.content
-	new_tr.transaction_value = req.body.val
-	await tc.insert(new_tr)
-	resp.status(200).send()
+
+app.post("/new_transfer", async(req, resp)=>{
+    const tcc = new TransactionCategoryController()
+    const transferCategoryID = await tcc.getCategoryIDbyName("Transfer")
+
+    const tc = new TransactionController()
+    const new_transaction_out = new Transaction()
+    new_transaction_out.account_id = req.body.source_acc_id
+    new_transaction_out.transaction_content = req.body.content
+    new_transaction_out.transaction_value = -req.body.value // negative value for outgoing transaction
+    new_transaction_out.transaction_category_id = transferCategoryID
+    await tc.insert(new_transaction_out)
+
+    const new_transaction_in = new Transaction()
+    new_transaction_in.account_id = req.body.dest_acc_id
+    new_transaction_in.transaction_content = req.body.content
+    new_transaction_in.transaction_value = req.body.value // positive value for incoming transaction
+    new_transaction_in.transaction_category_id = transferCategoryID
+    await tc.insert(new_transaction_in)
+
+    resp.status(200).send()
 })
+
 
 export default app;
