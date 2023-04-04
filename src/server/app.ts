@@ -25,12 +25,11 @@ app.get("/transac_made", async(req, resp)=>{
 	resp.send(trans_made)
 })
 
-
 app.post("/new_acc", async(req, resp)=>{
 	const new_acc = new Account()
 	const ac = new AccountController()
-	new_acc.account_no = "12345"//mock numbers obv
-	new_acc.sort_code = "54321"
+	new_acc.account_no = Math.floor(Math.random() * Math.pow(10, 8) - 1).toString();
+	new_acc.sort_code = "123456"
 	new_acc.user_id = req.body.user_id
 	await ac.insert(new_acc)
 	resp.status(200).send()
@@ -53,8 +52,11 @@ app.post("/new_transfer", async(req, resp)=>{
     new_transaction_out.transaction_category_id = transferCategoryID
     await tc.insert(new_transaction_out)
 
+    const ac = new AccountController()
+    const destination__acc_id = await ac.getAccountID(req.body.destination_account_no, req.body.destination_sort_code)
+
     const new_transaction_in = new Transaction()
-    new_transaction_in.account_id = req.body.dest_acc_id
+    new_transaction_in.account_id = destination__acc_id
     new_transaction_in.transaction_content = req.body.content
     new_transaction_in.transaction_value = req.body.value // positive value for incoming transaction
     new_transaction_in.transaction_category_id = transferCategoryID
