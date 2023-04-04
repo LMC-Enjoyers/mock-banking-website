@@ -135,12 +135,40 @@ export default function CreateAccount() {
 
 }
 
+interface Account {
+  id: string;
+  create_time: string;
+  user_id: string;
+  account_no: string;
+  sort_code: string;
+  account_type_id: string;
+}
 
 export function SwitchAccount() {
   const [showModal, setShowModal] = React.useState(false);
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  /* const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); */
+
+  const getData = async () => {
+    const response = await fetch(endpointRoot + 'acc');
+    const data: Account[] = await response.json();
+    setAccounts(data);
+  }
+
+  /* const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedAccountId = event.target.value;
+    const selectedAccount = accounts.find(account => account.id === selectedAccountId);
+    setSelectedAccount(selectedAccount || null);
+  } */
+
+  const showAndUpdate = async () => {
+    setShowModal(true)
+    getData()
+  }
+
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
+      <button onClick={() => showAndUpdate()} className="sidebar-item" type="button">
         <AiFillRest color="white" size='20'/>
         <div className="text-white font-medium p-4">
           Switch Account
@@ -175,12 +203,10 @@ export function SwitchAccount() {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
-                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                          <option selected>Current</option>
-                          <option value="CA">Savings</option>
-                          <option value="FR">Business</option>
-                          <option value="DE">Child</option>
-                          <option value="DE">Student</option>
+                        <select /* onChange={handleChange} */ id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                          {accounts.map(account => (
+                            <option value={account.id}>{account.account_no}</option>
+                          ))}
                         </select>
                       </div>
                       <button type="submit" className="text-white bg-emerald-500 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Confirm</button>
