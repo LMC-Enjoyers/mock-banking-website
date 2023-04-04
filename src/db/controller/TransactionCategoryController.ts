@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { AppDataSource} from "../data-source";
+import { AppDataSource, ensureInitialisedDB} from "../data-source";
 import { TransactionCategory } from "../entity/transaction_category.entity";
 import { BaseController } from "./BaseController";
 
@@ -9,7 +9,9 @@ export class TransactionCategoryController extends BaseController<TransactionCat
         return AppDataSource.getRepository(TransactionCategory);
     }
 
-    getCategoryIDbyName(name: string): Promise<string> {
+    async getCategoryIDbyName(name: string): Promise<string> {
+        await ensureInitialisedDB();
+        
         return this.getRepository().createQueryBuilder("transaction_category")
             .select("transaction_category.id")
             .where("transaction_category.category_name = :name", {name: name})
