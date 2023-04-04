@@ -35,4 +35,19 @@ export class AccountController extends BaseController<Account> {
 
         return currentBalance.balance;
     }
+    
+    async getAccountID(account_no: string, sort_code: string): Promise<string> {
+        await ensureInitialisedDB();
+
+        const accountRepository = await AppDataSource.getRepository(Account);
+
+        const account: any = await accountRepository
+            .createQueryBuilder("account")
+            .select("account.id")
+            .where("account.account_no = :account_no", { account_no: account_no })
+            .andWhere("account.sort_code = :sort_code", { sort_code: sort_code })
+            .getRawOne();
+
+        return account.account_id;
+    }
 }
