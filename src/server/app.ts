@@ -6,17 +6,17 @@ import { Account } from "../db/entity/account.entity";
 import { TransactionCategoryController } from "../db/controller/TransactionCategoryController";
 const express = require('express');
 const app = express();
-app.use(express.json())
-
+const cors = require('cors');
+app.use(cors())
 
 app.get("/user", async(req, resp)=>{
 	const user = new UserController()
-	const user_det = await user.getUser(req.body.username, req.body.password)
+	const user_det = await user.getUser("johnny12", "password")
 	resp.send(user_det)
 })
 app.get("/acc", async(req, resp)=>{
 	const acc = new UserController()
-	const acc_det = await acc.getAccounts(req.body.user_id)
+	const acc_det = await acc.getAccounts("a9bbc01b-40bd-4f93-9f87-fa0614a459b7")
 	resp.send(acc_det)
 })
 app.get("/transac_made", async(req, resp)=>{
@@ -28,9 +28,11 @@ app.get("/transac_made", async(req, resp)=>{
 app.post("/new_acc", async(req, resp)=>{
 	const new_acc = new Account()
 	const ac = new AccountController()
-	new_acc.account_no = Math.floor(Math.random() * Math.pow(10, 8) - 1).toString();
+	// Need to check if duplicate account number or instead use 
+	// new_acc.account_no = Math.floor(Math.random() * Math.pow(10, 8) - 1).toString();
+	new_acc.account_no = req.body.account_name
 	new_acc.sort_code = "123456"
-	new_acc.user_id = req.body.user_id
+	new_acc.user_id = "a9bbc01b-40bd-4f93-9f87-fa0614a459b7"
 	await ac.insert(new_acc)
 	resp.status(200).send()
 })
