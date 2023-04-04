@@ -5,7 +5,7 @@ import CreateAccount from "./modals/Modals";
 import { SwitchAccount } from "./modals/Modals";
 import { TransferMoney } from "./modals/Modals";
 import { DeleteAccount } from "./modals/Modals";
-import { AddFunds } from "./modals/Modals";
+import { Tranfer } from "./modals/Modals";
 
 
 export default function Sidebar() {
@@ -16,8 +16,8 @@ export default function Sidebar() {
         <CreateAccount/>
         <SwitchAccount/>
         <DeleteAccount/>
-        <AddFunds/>
-        <TransferMoney/>
+        <Tranfer/>
+        {/*<TransferMoney/>*/}
         <SidebarEnd icon={<BiLogOut color="grey" size='24'/>} item={"Log out"} />
         <datalist id="all accounts">
 

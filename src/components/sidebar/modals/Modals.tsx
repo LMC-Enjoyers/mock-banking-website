@@ -5,6 +5,7 @@ import { AiFillCreditCard } from "react-icons/ai";
 import { AiFillRest } from "react-icons/ai";
 
 import{ useState } from 'react';
+import { AccountType } from "../../../db/entity/account_type.entity";
 
 const endpointRoot = "http://127.0.0.1:5050/";
 
@@ -24,20 +25,34 @@ export default function CreateAccount() {
 */
 
   const [accountName, setAccountName] = useState('');
-  const [accountType, setAccountType] = useState('');
+  var [accountType, setAccountType] = useState('');
+
+  //console.log("AN " + accountName);
+  //console.log("AT " + accountType);
 
   const handleSubmit = async (event) => {
+    if(accountType === ''){
+      accountType = "Current"
+    }
     event.preventDefault();
-    const response = await fetch('/user_create', {
+    console.log('Sending request with accountName:', accountName, 'and accountType:', accountType);
+    try{
+    const dataJSON = JSON.stringify({accountName, accountType});
+    console.log(dataJSON)
+    const response = await fetch(endpointRoot + 'new_acc', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ accountName, accountType })
+      body: dataJSON
     });
-    const data = await response.json();
-    console.log(data)
+    //const data = await response.json();
+    
     // handle response
+  }
+  catch(error){
+    console.log("failed")
+  }
   }
 
   return (
@@ -73,21 +88,20 @@ export default function CreateAccount() {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <form onSubmit={handleSubmit} id="CreateAccount">
-                    {/*onSubmit={handleSubmit}*/}
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
                       <label htmlFor="account name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account Name</label>
-                      <input type="account name" id="account name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personal Account" required></input>
+                      <input type="accountName" id="accountName" name="accountName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personal Account" onChange={(e) => setAccountName(e.target.value)} required></input>
                     </div> 
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account Type</label>
-                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                          <option selected>Current</option>
-                          <option value="CA">Savings</option>
-                          <option value="FR">Business</option>
-                          <option value="DE">Child</option>
-                          <option value="DE">Student</option>
+                        <select id="accountType" name="accountType" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setAccountType(e.target.value)} required>
+                          <option selected value="Current">Current</option>
+                          <option value="Savings">Savings</option>
+                          <option value="Business">Business</option>
+                          <option value="Child">Child</option>
+                          <option value="Student">Student</option>
                         </select>
                       </div>
                     <div className="flex items-start mb-6">
@@ -121,6 +135,7 @@ export default function CreateAccount() {
 
 }
 
+
 export function SwitchAccount() {
   const [showModal, setShowModal] = React.useState(false);
   return (
@@ -142,7 +157,7 @@ export function SwitchAccount() {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Delete Account
+                    Switch Account
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -168,13 +183,7 @@ export function SwitchAccount() {
                           <option value="DE">Student</option>
                         </select>
                       </div>
-                    <div className="flex items-start mb-6">
-                      <div className="flex items-center h-5">
-                        <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required></input>
-                      </div>
-                      <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-black-300">Are you sure you want to delete this account?</label>
-                    </div>
-                    <button type="submit" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Delete</button>
+                      <button type="submit" className="text-white bg-emerald-500 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Confirm</button>
                   </form>
                 </div>
                 {/*footer*/}
@@ -200,6 +209,37 @@ export function SwitchAccount() {
 
 export function DeleteAccount() {
   const [showModal, setShowModal] = React.useState(false);
+
+  var [accountName, setAccountDelete] = useState('');
+  
+
+  //console.log("AN " + accountName);
+  //console.log("AT " + accountType);
+
+  const handleSubmit = async (event) => {
+    if(accountName === ''){
+      accountName = "Current"
+    }
+    event.preventDefault();
+    console.log('Sending request with accountName:', accountName);
+    try{
+    const dataJSON = JSON.stringify({accountName});
+    console.log(dataJSON)
+    const response = await fetch(endpointRoot + 'new_acc', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: dataJSON
+    });
+    //const data = await response.json();
+    
+    // handle response
+  }
+  catch(error){
+    console.log("failed")
+  }
+  }
   return (
     <>
       <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
@@ -232,12 +272,12 @@ export function DeleteAccount() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form id="DeleteAccount">
+                  <form id="DeleteAccount" onSubmit={handleSubmit}>
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
-                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setAccountDelete(e.target.value)} required>
                           <option selected>Current</option>
                           <option value="CA">Savings</option>
                           <option value="FR">Business</option>
@@ -276,14 +316,47 @@ export function DeleteAccount() {
 }
 
 
-export function AddFunds() {
+export function Tranfer() {
   const [showModal, setShowModal] = React.useState(false);
+
+  var [account, setAccount] = useState('');
+  const [amount, setAmount] = useState('');
+  const [reason, setReason] = useState('');
+
+  //console.log("AN " + accountName);
+  //console.log("AT " + accountType);
+
+  const handleSubmit = async (event) => {
+    if(account === ''){
+      account = "Current"
+    }
+    event.preventDefault();
+    console.log('Sending request with accountName:', account, 'and amount', amount, 'and reason', reason);
+    try{
+    const dataJSON = JSON.stringify({account, amount, reason});
+    console.log(dataJSON)
+    const response = await fetch(endpointRoot + 'new_acc', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: dataJSON
+    });
+    //const data = await response.json();
+    
+    // handle response
+  }
+  catch(error){
+    console.log("failed")
+  }
+  }
+
   return (
     <>
       <button onClick={() => setShowModal(true)} className="sidebar-item" type="button">
         <AiOutlinePound color="white" size='20'/>
         <div className="text-white font-medium p-4">
-          Add Funds
+          Tranfer
         </div>
       </button>
       {showModal ? (
@@ -297,7 +370,7 @@ export function AddFunds() {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Add Funds
+                    Transfer
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -310,12 +383,12 @@ export function AddFunds() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form id="AddFunds">
+                  <form id="AddFunds" onSubmit={handleSubmit}>
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
-                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <select id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setAccount(e.target.value)} required>
                           <option selected>Current</option>
                           <option value="CA">Savings</option>
                           <option value="FR">Business</option>
@@ -325,8 +398,12 @@ export function AddFunds() {
                       </div>
                     <div className="mb-6">
                       <label htmlFor="account name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Amount</label>
-                      <input type="number" id="account name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required></input>
+                      <input type="number" id="account name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" onChange={(e) => setAmount(e.target.value)} required></input>
                     </div>
+                    <div className="mb-6">
+                      <label htmlFor="account name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Reason</label>
+                      <input type="accountName" id="accountName" name="accountName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bought ..." onChange={(e) => setReason(e.target.value)} required></input>
+                    </div> 
                     <button type="submit" className="text-white bg-emerald-500 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Transfer</button>
                   </form>
                 </div>
@@ -357,6 +434,7 @@ interface TransferValues {
   amount: number;
 }
 
+{ /* unused */}
 export function TransferMoney() {
   const [showModal, setShowModal] = React.useState(false);
 
