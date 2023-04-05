@@ -15,10 +15,25 @@ app.get("/user", async(req, resp)=>{
 	resp.send(user_det)
 })
 app.get("/acc", async(req, resp)=>{
-	const acc = new UserController()
-	const acc_det = await acc.getAccounts("a9bbc01b-40bd-4f93-9f87-fa0614a459b7")
-	resp.send(acc_det)
+    // Hard coded user id
+    const user_id = "a9bbc01b-40bd-4f93-9f87-fa0614a459b7"
+
+    // Fetch all the accounts belonging to the user
+	const uc = new UserController()
+	const accounts = await uc.getAccounts(user_id)
+
+    // Fetch the interest and balance for each account
+    const ac = new AccountController()
+    for (const account of accounts) {
+        const acc_id = account.getID()
+
+        account['interest'] = await ac.getInterest(acc_id)
+        account['balance'] = await ac.getCurrentBalance(acc_id)
+    }
+    
+    resp.send(accounts)
 })
+
 app.get("/transac_made", async(req, resp)=>{
 	const transc = new AccountController()
 	const trans_made = await transc.getTransactions(req.body.acc_id)
