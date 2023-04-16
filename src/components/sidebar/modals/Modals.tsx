@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiFillBank } from "react-icons/ai";
 import { AiFillCreditCard } from "react-icons/ai";
 import { AiFillRest } from "react-icons/ai";
 import{ useState } from 'react';
+import UserContext from "../../CurrentData";
 
 const endpointRoot = "http://127.0.0.1:5050/";
 
@@ -31,15 +32,14 @@ export default function CreateAccount() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch(endpointRoot + 'new_acc', {
+      const dataJSON = JSON.stringify(values)
+      await fetch(endpointRoot + 'new_acc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: dataJSON,
       });
-      const data = await response;
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -110,14 +110,16 @@ export default function CreateAccount() {
 }
 
 export function SwitchAccount() {
+  const {setData} = useContext(UserContext)
   const [showModal, setShowModal] = React.useState(false);
   const [accounts, setAccounts] = useState<Account[]>([]);
-  /* const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); */
+  const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
 
   const getData = async () => {
     const response = await fetch(endpointRoot + 'acc');
     const data: Account[] = await response.json();
     setAccounts(data);
+    setSelectedAccount(data[0] || null)
   }
 
   const showAndUpdate = async () => {
@@ -125,11 +127,37 @@ export function SwitchAccount() {
     getData()
   }
 
-  /* const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedAccountId = event.target.value;
     const selectedAccount = accounts.find(account => account.id === selectedAccountId);
     setSelectedAccount(selectedAccount || null);
-  } */
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      let data = {
+        name: 'Name',
+        account_name: 'Name',
+        balance: 0,
+        interest: 0,
+        total_change: 0,
+        account_no: '0',
+        sort_code: '0',
+        start_date: '01/01/23',
+        saving_balance: 0,
+        saving_interest: 0,
+        month_change: 0,
+      }
+      data.sort_code = selectedAccount.sort_code
+      data.account_no = selectedAccount.account_no
+      data.start_date = selectedAccount.create_time
+      
+      setData(data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -163,12 +191,12 @@ export function SwitchAccount() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form id="DeleteAccount">
+                  <form onSubmit={handleSubmit}>
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                     </div>
                     <div className="mb-6">
                         <label htmlFor="account_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Account</label>
-                        <select /* onChange={handleChange} */ id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <select onChange={handleChange} id="account_type" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                           {accounts.map(account => (
                             <option key={account.id} value={account.id}>{account.account_no}</option>
                           ))}
