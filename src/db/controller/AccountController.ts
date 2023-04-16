@@ -53,7 +53,7 @@ export class AccountController extends BaseController<Account> {
         return account.account_id;
     }
 
-    async getInterest(acc_id: string) {
+    async getInterest(acc_id: string): Promise<number> {
         await ensureInitialisedDB();
 
         const accountRepository = await AppDataSource.getRepository(Account);

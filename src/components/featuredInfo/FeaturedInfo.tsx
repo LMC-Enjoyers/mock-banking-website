@@ -1,14 +1,17 @@
-import React from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import React, { useContext } from "react";
+import { PieChart, Pie, Cell, Legend } from "recharts";
 import { AiFillBank } from "react-icons/ai";
 import { BiTrendingDown } from "react-icons/bi";
 import { BiTrendingUp } from "react-icons/bi";
 import { IoMdWallet } from "react-icons/io";
+import UserContext from "../CurrentData";
 
 export default function FeaturedInfo() {
+
+  const {data} = useContext(UserContext)
   //measures the rate by which the money in your bank account has increases / decreased
   // if it has increased it will show a positive trend line, otherwise it will show a negative trend line
-  const moneyRate: number = 10.3;
+  const moneyRate: number = data.interest;
   let moneyRateIcon: any;
   let moneyRateString: string = moneyRate as unknown as string;
   if (moneyRate > 0) {
@@ -18,10 +21,26 @@ export default function FeaturedInfo() {
     moneyRateIcon = <BiTrendingDown size="20" />;
   }
 
+  const monthChange: number = data.month_change;
+  let monthChangeString: string = monthChange as unknown as string;
+  if (monthChange >= 0) {
+    monthChangeString = "+" + monthChange;
+  } else {
+    monthChangeString = "-" + monthChange;
+  }
+
+  const totalChange: number = data.total_change;
+  let totalChangeString: string = totalChange as unknown as string;
+  if (totalChange >= 0) {
+    totalChangeString = "+" + totalChange;
+  } else {
+    totalChangeString = "-" + totalChange;
+  }
+
   // colours used for the pie chart
   const colours = ["#1e1e1e", "#565656", "#a4a5a5"];
   // data for the pie chart
-  const data = [
+  const pieData = [
     { name: "Electronics", value: 400 },
     { name: "Laptops", value: 700 },
     { name: "Phones", value: 200 },
@@ -40,15 +59,15 @@ export default function FeaturedInfo() {
               </div>
               <div className="flex justify-center flex-col">
                 <div className="mb-2 mt-2 text-lg font-semibold text-white">
-                  NAME HERE
+                  {data.name}
                 </div>
                 <div className="text-base font-semibold whitespace-nowrap text-bank-light-grey">
-                  ACC_NO | SORT_CODE
+                  {data.account_no} | {data.sort_code}
                 </div>
               </div>
             </div>
             <div className="flex ml-12 mr-12 mt-12">
-              <div className="text-4xl text-white font-semibold">$1,984.00</div>
+              <div className="text-4xl text-white font-semibold">£{data.balance}</div>
             </div>
             <div className="flex flex-row ml-12 mr-12 mt-12">
               <div className="flex w-24 sm:w-40 flex-row">
@@ -58,7 +77,7 @@ export default function FeaturedInfo() {
                 </div>
               </div>
               <div className="flex flex-row ml-12 text-white text-xl">
-                +1.4k
+                {totalChangeString}
                 <span className="text-bank-letter-grey whitespace-nowrap ml-1">this week</span>
               </div>
             </div>
@@ -74,27 +93,27 @@ export default function FeaturedInfo() {
               </div>
               <div className="flex justify-center flex-col">
                 <div className="mb-2 mt-2 text-lg font-semibold">
-                  ACCOUNT NAME
+                  {data.account_name}
                 </div>
                 <div className="text-base font-semibold text-bank-light-grey">
-                  STARTING DATE
+                  {data.start_date}
                 </div>
               </div>
             </div>
             <div className="flex ml-12 mr-12 mt-12">
-              <div className="text-4xl font-semibold">1,984.00</div>
+              <div className="text-4xl font-semibold">£{data.saving_balance}</div>
             </div>
             <div className="flex flex-row ml-12 mr-12 mt-12">
               <div className="flex flex-row">
                 <div className="flex w-24 sm:w-40 text-xl">
-                  5%
+                  {data.saving_interest}%
                   <span className="text-bank-letter-grey whitespace-nowrap ml-1">
                     interest
                   </span>
                 </div>
               </div>
               <div className="flex flex-row ml-12 text-xl">
-                +500
+                {monthChangeString}
                 <span className="text-bank-letter-grey whitespace-nowrap ml-1">this month</span>
               </div>
             </div>
@@ -107,8 +126,9 @@ export default function FeaturedInfo() {
           <div className="text-center text-3xl">Top Categories</div>
           <div className="flex flex-shrink-0 justify-center">
             <PieChart width={500} height={500}>
+            <Legend verticalAlign="bottom" height={36}/>
               <Pie
-                data={data}
+                data={pieData}
                 dataKey="value"
                 nameKey="name"
                 cx="50%"
@@ -117,8 +137,9 @@ export default function FeaturedInfo() {
                 outerRadius={160}
                 fill="#1e1e1e"
                 paddingAngle={2}
+                label
               >
-                {data.map((entry, index) => (
+                {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={colours[index]} />
                 ))}
               </Pie>

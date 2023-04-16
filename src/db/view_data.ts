@@ -5,12 +5,19 @@ import { AccountController } from "./controller/AccountController";
 import { Account } from "./entity/account.entity";
 import { Transaction } from "./entity/transaction.entity";
 import { TransactionController } from "./controller/TransactionController";
+import { AccountTypeController } from "./controller/AccountTypeController";
+import { AccountType } from "./entity/account_type.entity";
 
 async function test() {
     // Display all users
     const u_c = new UserController();
     const users: User[] = await u_c.getAll();
     console.log("Users:", users);
+
+    // Display all account types
+    const at_c = new AccountTypeController();
+    const account_types: AccountType[] = await at_c.getAll();
+    console.log("Account Types:", account_types);
 
     // Get specific user
     const user = users[0];

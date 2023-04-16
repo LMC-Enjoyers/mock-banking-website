@@ -6,6 +6,7 @@ import { Account } from "../db/entity/account.entity";
 import { TransactionCategoryController } from "../db/controller/TransactionCategoryController";
 const express = require('express');
 const app = express();
+app.use(express.json({ limit: '50mb' }));
 const cors = require('cors');
 app.use(cors())
 
@@ -21,15 +22,6 @@ app.get("/acc", async(req, resp)=>{
     // Fetch all the accounts belonging to the user
 	const uc = new UserController()
 	const accounts = await uc.getAccounts(user_id)
-
-    // Fetch the interest and balance for each account
-    const ac = new AccountController()
-    for (const account of accounts) {
-        const acc_id = account.getID()
-
-        account['interest'] = await ac.getInterest(acc_id)
-        account['balance'] = await ac.getCurrentBalance(acc_id)
-    }
     
     resp.send(accounts)
 })
@@ -48,6 +40,8 @@ app.post("/new_acc", async(req, resp)=>{
 	new_acc.account_no = req.body.account_name
 	new_acc.sort_code = "123456"
 	new_acc.user_id = "a9bbc01b-40bd-4f93-9f87-fa0614a459b7"
+    new_acc.account_type_id = "9419e9a7-c1c3-4552-90d4-31529995cc3e"
+    
 	await ac.insert(new_acc)
 	resp.status(200).send()
 })
